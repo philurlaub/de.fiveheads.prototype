@@ -1,0 +1,16 @@
+@(articles: List[Article])
+
+@main("FiveHeads - Artikelliste") {
+
+    <div class="container"><!-- container -->
+        <h1>Artikel in der Datenbank</h1>
+        <div class="row">
+              @articles.map { article =>
+                  @views.html.article(article)
+              }
+        </div>
+        <a href="@controllers.routes.Articles.newarticle" class="btn btn-default">Neuer Artikel</a>
+        <a href="@controllers.routes.Articles.deleteAll" class="btn btn-default">Alle Löschen</a>
+    </div>
+
+}

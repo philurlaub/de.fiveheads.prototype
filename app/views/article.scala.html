@@ -1,0 +1,17 @@
+@(article: Article)
+
+<div class="col-md-12">
+    <div class="panel panel-primary">
+        <div class="panel-heading ">
+            <h4>@article.title</h4>
+            <div class="options">
+                <span class="text-right">@article.publicationDate.format("dd MMMM yyyy")</span>
+            </div>
+        </div>
+        <div class="panel-body">
+
+            @article.content
+
+        </div>
+    </div>
+</div>

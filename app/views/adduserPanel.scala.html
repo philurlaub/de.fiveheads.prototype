@@ -1,0 +1,48 @@
+@(form: Form[models.User])
+
+<div class="container"><!-- container -->
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4>Add User</h4>
+                    <div class="options">
+
+                    </div>
+                </div>
+                <div class="panel-body">
+                    @helper.form(routes.User.adduser) {
+                    @if(form.hasGlobalErrors) {
+                    <div class="alert alert-dismissable alert-danger">
+                        @form.globalError.message
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    </div>
+                    }
+
+                    <div class="form-group">
+                        <label for="email" class="control-label col-sm-4" style="text-align: left;">Email</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" id="ema il" type="email" name="email" placeholder="Email" value="@form("email").value">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="control-label col-sm-4" style="text-align: left;">Password</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="control-label col-sm-4" style="text-align: left;">Password</label>
+                        <div class="col-sm-8">
+                            <input type="password" class="form-control" id="passwordRepeat" name="passwordRepeat" placeholder="Password">
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-block" type="submit">Login</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- container -->
