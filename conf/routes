@@ -5,5 +5,20 @@
 # Home page
 GET     /                           controllers.Application.index()
 
+# Article Management
+GET     /articlelist                controllers.Articles.articlelist()
+GET     /newarticle                 controllers.Articles.newarticle()
+GET     /deleteall                  controllers.Articles.deleteAll()
+POST    /newarticle                 controllers.Articles.add()
+
+
+# Authentication
+GET     /login                      controllers.Application.login()
+POST    /login                      controllers.Application.authenticate()
+GET     /logout                     controllers.Application.logout()
+
+# User Management
+GET     /adduser                    controllers.User.adduser()
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
