@@ -11,7 +11,7 @@ import views.html.articlelist;
 
 
 @Security.Authenticated(Secured.class)
-public class Articles extends Controller{
+public class ArticleController extends Controller{
 
 
     public static Result articlelist() {
@@ -29,7 +29,7 @@ public class Articles extends Controller{
 
     public static Result deleteAll(){
         Article.deleteAll();
-        return redirect(controllers.routes.Articles.articlelist());
+        return redirect(routes.ArticleController.articlelist());
     }
 
     public static Result add() {
@@ -39,7 +39,7 @@ public class Articles extends Controller{
         }
         else {
             Article.create(articleForm.get());
-            return redirect(controllers.routes.Articles.articlelist());
+            return redirect(routes.ArticleController.articlelist());
         }
     }
 }

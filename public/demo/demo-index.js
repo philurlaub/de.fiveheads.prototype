@@ -228,7 +228,7 @@ jQuery(document).ready(function() {
         label: "Unique Views"
     }, {
         data: usercount,
-        label: "User Count"
+        label: "UserController Count"
     }], {
         series: {
             lines: {

@@ -17,6 +17,7 @@ create table account (
   name                      varchar(255),
   password                  varchar(255),
   points                    bigint,
+  role                      varchar(255),
   constraint pk_account primary key (email))
 ;
 

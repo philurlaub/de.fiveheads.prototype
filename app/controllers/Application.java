@@ -1,14 +1,13 @@
 package controllers;
 
-import play.*;
-import play.api.templates.Html;
+import models.User;
 import play.mvc.*;
-import play.data.*;
+
 import static play.data.Form.*;
 import play.data.Form;
 
-import models.*;
 import views.html.*;
+import views.html.user.*;
 
 
 public class Application extends Controller {
@@ -17,7 +16,6 @@ public class Application extends Controller {
     public static Result index() {
         return ok(index.render());
     }
-
 
     // -- Authentication
 
@@ -28,12 +26,28 @@ public class Application extends Controller {
 
         public String validate() {
             if(models.User.authenticate(email, password) == null) {
-                return "Invalid user or password";
+                return "Ungültige E-Mail Adresse oder Passwort";
             }
             return null;
         }
-
     }
+
+    /**
+     * Handle login form submission.
+     */
+
+    public static Result authenticate() {
+        Form<Login> loginForm = form(Login.class).bindFromRequest();
+        if(loginForm.hasErrors()) {
+            return badRequest(login.render(loginForm));
+        } else {
+            session("email", loginForm.get().email);
+            return redirect(
+                    controllers.routes.Application.index()
+            );
+        }
+    }
+
 
     /**
      * Login page.
@@ -42,21 +56,6 @@ public class Application extends Controller {
         return ok(
                 login.render(form(Login.class))
         );
-    }
-
-    /**
-     * Handle login form submission.
-     */
-    public static Result authenticate() {
-        Form<Login> loginForm = form(Login.class).bindFromRequest();
-        if(loginForm.hasErrors()) {
-            return badRequest(login.render(loginForm));
-        } else {
-            session("email", loginForm.get().email);
-            return redirect(
-                controllers.routes.Application.index()
-            );
-        }
     }
 
     /**

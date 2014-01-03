@@ -10,7 +10,7 @@
             <div class="col-md-12">
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        <form action="@routes.Articles.add" method="POST" class="form-horizontal row-border" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
+                        <form action="@routes.ArticleController.add" method="POST" class="form-horizontal row-border" style="border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px;">
                             @if(form.hasGlobalErrors) {
                                 <div class="alert alert-dismissable alert-danger">
                                     @form.globalError.message

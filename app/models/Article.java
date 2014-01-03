@@ -9,7 +9,7 @@ import play.data.format.*;
 import play.data.validation.*;
 
 /**
- * User entity managed by Ebean
+ * UserController entity managed by Ebean
  */
 @Entity
 @Table(name="article")
