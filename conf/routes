@@ -11,6 +11,8 @@ GET     /newarticle                 controllers.ArticleController.newarticle()
 GET     /deleteall                  controllers.ArticleController.deleteAll()
 POST    /newarticle                 controllers.ArticleController.add()
 
+GET     /rating                     controllers.ArticleController.rating()
+
 
 # Authentication
 GET     /login                      controllers.Application.login()

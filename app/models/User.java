@@ -20,7 +20,6 @@ public class User extends Model {
     @Constraints.Required
     @Formats.NonEmpty
     public String email;
-    
 
     public String name;
     
@@ -30,6 +29,9 @@ public class User extends Model {
     public long points = 10;
 
     private String role = "user";
+
+    @OneToMany
+    private List<Rating> ratingList;
     
     // -- Queries
     
@@ -72,7 +74,6 @@ public class User extends Model {
             .findUnique();
     }
 
-    
     // --
     
     public String toString() {

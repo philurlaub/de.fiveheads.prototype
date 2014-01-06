@@ -5,15 +5,13 @@ import static play.data.Form.*;
 import play.data.Form;
 import play.mvc.*;
 import models.*;
-import views.html.article;
-import views.html.addarticle;
-import views.html.articlelist;
+import views.html.*;
 
 
 @Security.Authenticated(Secured.class)
 public class ArticleController extends Controller{
 
-
+    // GET Artikelliste
     public static Result articlelist() {
         return ok(
             articlelist.render(
@@ -21,17 +19,20 @@ public class ArticleController extends Controller{
         );
     }
 
+    // GET Neuer Artikel
     public static Result newarticle () {
         return ok(
             addarticle.render(form(Article.class))
         );
     }
 
+    // POST Alle Artikel löschen
     public static Result deleteAll(){
         Article.deleteAll();
         return redirect(routes.ArticleController.articlelist());
     }
 
+    // POST  Neuer Artikel
     public static Result add() {
         Form<Article> articleForm = form(Article.class).bindFromRequest();
         if(articleForm.hasErrors()) {
@@ -42,4 +43,13 @@ public class ArticleController extends Controller{
             return redirect(routes.ArticleController.articlelist());
         }
     }
+
+    // GET Rating
+    public static Result rating() {
+        Article.getUnratedToUserEmail(session("email"));
+        return ok(
+                rating.render(null)
+        );
+    }
+
 }

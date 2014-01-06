@@ -35,6 +35,9 @@ public class Article extends Model {
 
     public String language;
 
+    @OneToMany
+    private List<Rating> ratingList;
+
     public String validate() {
         return null;
     }
@@ -55,6 +58,15 @@ public class Article extends Model {
         return find.all();
     }
 
+    public static Article getUnratedToUserEmail(String email) {
+        List<Article> list = find
+                                .fetch("rating").findList();
+
+
+
+        return null;
+    }
+
     public static void deleteAll(){
         Ebean.delete(findAll());
     }
@@ -64,6 +76,7 @@ public class Article extends Model {
     public String toString() {
         return "Article(" + title + " Veröffentlicht am: " + publicationDate + " mit dem Inhalt " + content + ")";
     }
+
 
 }
 
