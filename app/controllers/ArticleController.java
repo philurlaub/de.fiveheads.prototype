@@ -46,9 +46,9 @@ public class ArticleController extends Controller{
 
     // GET Rating
     public static Result rating() {
-        Article.getUnratedToUserEmail(session("email"));
+
         return ok(
-                rating.render(null)
+                rating.render(Article.getUnratedToUserEmail(session("email")))
         );
     }
 

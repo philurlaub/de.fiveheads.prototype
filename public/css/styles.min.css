@@ -10097,9 +10097,9 @@ body.static-header {
 }
 
 .navbar-brand {
-    background: url("../img/#logo.png") no-repeat center center;
+    background: url("../img/logo.png") no-repeat center center;
     height: 40px;
-    width: 110px;
+    width: 190px;
     font: 0/0 a;
     color: transparent;
     text-shadow: none;
@@ -10260,7 +10260,7 @@ footer #back-to-top {
     display: block;
     padding-bottom: 40px;
     margin: 0 auto;
-    width: 224px
+    width: 350px
 }
 
 .focusedform .verticalcenter {
