@@ -32,6 +32,12 @@ public class ArticleController extends Controller{
         return redirect(routes.ArticleController.articlelist());
     }
 
+    // POST Artikel über id löschen
+    public static Result delete(Long id){
+        Article.delete(id);
+        return redirect(routes.ArticleController.articlelist());
+    }
+
     // POST  Neuer Artikel
     public static Result add() {
         Form<Article> articleForm = form(Article.class).bindFromRequest();
@@ -42,14 +48,6 @@ public class ArticleController extends Controller{
             Article.create(articleForm.get());
             return redirect(routes.ArticleController.articlelist());
         }
-    }
-
-    // GET Rating
-    public static Result rating() {
-
-        return ok(
-                rating.render(Article.getUnratedToUserEmail(session("email")))
-        );
     }
 
 }

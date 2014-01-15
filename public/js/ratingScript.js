@@ -1,11 +1,12 @@
-/*
-* Author:      Marco Kuiper (http://www.marcofolio.net/)
-*/
 
-$(document).ready(function()
-{
+$(document).ready(function(){
+
+    //Punktestand merken
+    var rating;
+
 	// Variable to set the duration of the animation
 	var animationTime = 500;
+    var storeRating = false;
 	
 	// Variable to store the colours
 	var colours = ["bd2c33", "e49420", "ecdb00", "3bad54", "1b7db9"];
@@ -26,34 +27,54 @@ $(document).ready(function()
 	
 	// Handle the hover events
 	$("#rating li a").hover(function() {
-		
-		// Empty the rating info box and fade in
-		ratingInfobox
-			.empty()
-			.stop()
-			.animate({ opacity : 1 }, animationTime);
-		
-		// Add the text to the rating info box
-		$("<p />")
-			.html($(this).html())
-			.appendTo(ratingInfobox);
-		
-		// Call the colourize function with the given index
-		colourizeRatings($(this).parent().index());
+        if(!storeRating) {
+
+            // Empty the rating info box and fade in
+            ratingInfobox
+                .empty()
+                .stop()
+                .animate({ opacity : 1 }, animationTime);
+
+            // Add the text to the rating info box
+            $("<p />")
+                .html($(this).html())
+                .appendTo(ratingInfobox);
+
+            // Call the colourize function with the given index
+            colourizeRatings($(this).parent().index());
+        }
+
 	}, function() {
-		
-		// Fade out the rating information box
-		ratingInfobox
-			.stop()
-			.animate({ opacity : 0 }, animationTime);
-		
-		// Restore all the rating to their original colours
-		$("#rating li a").stop().animate({ backgroundColor : "#333" } , animationTime);
+        if(!storeRating) {
+            // Fade out the rating information box
+            ratingInfobox
+                .stop()
+                .animate({ opacity : 0 }, animationTime);
+
+            // Restore all the rating to their original colours
+            $("#rating li a").stop().animate({ backgroundColor : "#595f69" } , animationTime);
+        }
 	});
 	
 	// Prevent the click event and show the rating
 	$("#rating li a").click(function(e) {
 		e.preventDefault();
-		alert("You voted on item number " + ($(this).parent().index() + 1));
+        storeRating = true;
+        $("#rating li a").stop().animate({ backgroundColor : "#595f69" } , animationTime);
+        rating = $(this).parent().index();
+        $('#ratinginfo').empty();
+        $("<p />").html($(this).html()).appendTo(ratingInfobox);
+        colourizeRatings(rating);
+
 	});
+
+    $("#saveRating").click(function() {
+        if (typeof(rating) != "undefined"){
+            window.location.href =  jsRoutes.controllers.RatingController.saveRating(this.value, (rating -2)).url;
+            fiveheadsNotify('success', 'Erfolgreich gespeichert!', 'Bewerte einen weiteren Artikel.')
+        } else {
+            fiveheadsNotify('danger', 'Achtung!', 'Bitte erst eine Bewertung wählen.')
+        }
+    });
+
 });

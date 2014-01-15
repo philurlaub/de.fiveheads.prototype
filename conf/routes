@@ -3,25 +3,37 @@
 # ~~~~
 
 # Home page
-GET     /                           controllers.Application.index()
+GET     /                                       controllers.Application.index()
 
 # Article Management
-GET     /articlelist                controllers.ArticleController.articlelist()
-GET     /newarticle                 controllers.ArticleController.newarticle()
-GET     /deleteall                  controllers.ArticleController.deleteAll()
-POST    /newarticle                 controllers.ArticleController.add()
+GET     /articlelist                            controllers.ArticleController.articlelist()
+GET     /newarticle                             controllers.ArticleController.newarticle()
+GET     /deleteall                              controllers.ArticleController.deleteAll()
+# Interessant URL regex! Whooop!
+GET     /deletearticle/$id<[0-9]+>              controllers.ArticleController.delete(id: Long)
+POST    /newarticle                             controllers.ArticleController.add()
 
-GET     /rating                     controllers.ArticleController.rating()
-
+# Rating stuff
+GET     /rating                                 controllers.RatingController.rating()
+GET     /rating/:article/:rating                controllers.RatingController.saveRating(article: Long, rating: Int)
 
 # Authentication
-GET     /login                      controllers.Application.login()
-POST    /login                      controllers.Application.authenticate()
-GET     /logout                     controllers.Application.logout()
+GET     /login                                  controllers.Application.login()
+POST    /login                                  controllers.Application.authenticate()
+GET     /logout                                 controllers.Application.logout()
+
 
 # User Management
-GET     /register                   controllers.UserController.register()
-POST    /register                   controllers.UserController.registerNewUser()
+GET     /register                               controllers.UserController.register()
+POST    /register                               controllers.UserController.registerNewUser()
+GET     /userlist                               controllers.UserController.userlist()
+GET     /deleteuser/$id<[0-9]+>                 controllers.UserController.delete(id: Long)
+GET     /setpoints/:id/:points                  controllers.UserController.setPoints(id: Long, points: Long)
+GET     /setrole/:id/:role                      controllers.UserController.setRole(id: Long, role: String)
+
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file               controllers.Assets.at(path="/public", file)
+GET     /assets/*file                           controllers.Assets.at(path="/public", file)
+
+GET     /admin/demodaten                        controllers.Application.demoData()
+

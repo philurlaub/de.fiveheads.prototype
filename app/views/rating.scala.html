@@ -3,33 +3,50 @@
 @main("Artikel Bewerten") {
 <div class="container"><!-- container -->
 
-    <h1>Bewerte einen Artikel und sammle Punkte</h1>
+    <h1>Wie bewertest du diesen Artikel im Bezug zum Apple iPhone?</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading ">
+                    <h4>@article.title</h4>
+                    <div class="options">
+                        <span class="text-right">@article.publicationDate.format("dd MMMM yyyy")</span>
+                    </div>
+                </div>
+                <div class="panel-body">
 
-    <div class="col-md-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading ">
-                <h4>@article.title</h4>
-                <div class="options">
-                    <span class="text-right">@article.publicationDate.format("dd MMMM yyyy")</span>
+                    @Html(article.content)
+
+                </div>
+                <div class="panel-footer right">
+                    <div id="ratingWrapper">
+                        <div class="fa fa-chevron-left ratingLabel">  NEGATIV</div>
+                        <div id="ratingBox">
+                            <ul id="rating">
+                                <li><a href="#">Dieser Artikel ist sehr negativ</a></li>
+                                <li><a href="#">Dieser Artikel ist negativ</a></li>
+                                <li><a href="#">Dieser Artikel ist neutral</a></li>
+                                <li><a href="#">Dieser Artikel ist positiv</a></li>
+                                <li><a href="#">Dieser Artikel ist sehr positiv</a></li>
+                            </ul>
+                        </div>
+                        <div class="ratingLabel">POSITIV  <span class="fa fa-chevron-right">&nbsp;</span></div>
+                    </div>
                 </div>
             </div>
-            <div class="panel-body">
+        </div>
 
-                @article.content
-
-            </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <button id="saveRating" value="@article.id" class="btn btn-primary btn-block">Bewertung abschließen</button>
         </div>
     </div>
-    <div class="col-md-12">
-        <div class="panel panel-primary">
-            <div class="panel-heading ">
 
-                <div class="options">
-                    Fünf Sterne!
-                </div>
-            </div>
+    @helper.javascriptRouter("jsRoutes")(
+        routes.javascript.RatingController.saveRating
+    )
+    <script type="text/javascript" src="assets/js/ratingScript.js"></script>
 
-        </div>
-    </div>
 </div>
 }

@@ -14,23 +14,26 @@ create table article (
 
 create table rating (
   id                        bigint auto_increment not null,
-  score                     bigint,
-  user_email                varchar(255),
+  score                     integer,
+  user_id                   bigint,
   article_id                bigint,
+  rating_timestamp          datetime not null,
   constraint pk_rating primary key (id))
 ;
 
 create table account (
-  email                     varchar(255) not null,
+  id                        bigint auto_increment not null,
+  email                     varchar(255),
   name                      varchar(255),
   password                  varchar(255),
   points                    bigint,
   role                      varchar(255),
-  constraint pk_account primary key (email))
+  registration_date         datetime,
+  constraint pk_account primary key (id))
 ;
 
-alter table rating add constraint fk_rating_user_1 foreign key (user_email) references account (email) on delete restrict on update restrict;
-create index ix_rating_user_1 on rating (user_email);
+alter table rating add constraint fk_rating_user_1 foreign key (user_id) references account (id) on delete restrict on update restrict;
+create index ix_rating_user_1 on rating (user_id);
 alter table rating add constraint fk_rating_article_2 foreign key (article_id) references article (id) on delete restrict on update restrict;
 create index ix_rating_article_2 on rating (article_id);
 

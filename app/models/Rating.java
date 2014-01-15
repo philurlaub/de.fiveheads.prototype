@@ -1,15 +1,17 @@
 package models;
 
+import java.sql.Timestamp;
 import java.util.*;
 import javax.persistence.*;
 
 import com.avaje.ebean.Ebean;
+import com.avaje.ebean.annotation.CreatedTimestamp;
 import play.db.ebean.*;
 import play.data.format.*;
 import play.data.validation.*;
 
 /**
- * UserController entity managed by Ebean
+ * RatingController entity managed by Ebean
  */
 @Entity
 @Table(name="rating")
@@ -21,17 +23,21 @@ public class Rating extends Model {
     @GeneratedValue
     private Long id;
 
-    @Formats.DateTime(pattern="dd.MM.yyyy")
-    @Constraints.Required
-    public Formats.DateTime dateTime;
+    // Speichert den Zeitpunkt der Bewertung
+    @Formats.DateTime(pattern="yyyy-MM-dd HH:mm:ss")
+    @CreatedTimestamp
+    protected Date ratingTimestamp;
 
-    private Long score = 0L;
+    // Enthält die vom Benutzer vergebene Bewertung
+    public int score = 0;
 
+    // Datenbankrelation zu der Tabelle "account" festlegen
     @ManyToOne
-    private User user;
+    public User user;
 
+    // Datenbankrelation zu der Tabelle "article" festlegen
     @ManyToOne
-    private Article article;
+    public Article article;
 
 }
 

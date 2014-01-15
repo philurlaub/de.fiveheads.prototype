@@ -1,9 +1,112 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title></title>
-</head>
-<body>
+@(users: List[User])
 
-</body>
-</html>
+@main("Usermanagement") {
+
+<div class="container"><!-- container -->
+    <h1>Benutzer bearbeiten und Rechte festlegen</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table id="userlist" class="table">
+                            <thead>
+                            <tr>
+                                <th style="padding-right:100px">E-Mail</th>
+                                <th>Punkte</th>
+                                <th>Registriert am</th>
+                                <th>User Rolle</th>
+                                <th>Aktionen</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @users.map { user =>
+                            <tr>
+                                <td align="left"><i>@user.email</i></td>
+                                <td align="left"><i>@user.points</i></td>
+                                <td align="left"><i>@user.registrationDate.format("dd MMMM yyyy")</i></td>
+                                <td class="roleSwitch">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="roleSwitch-@user.id" value="user" @if(user.role == "user") {checked}> User
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="roleSwitch-@user.id" value="manager" @if(user.role == "manager") {checked}> Manager
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="roleSwitch-@user.id" value="admin" @if(user.role == "admin") {checked}> Administrator
+                                    </label>
+                                </td>
+                                <td align="left">
+                                    <div class="btn-group">
+                                        <button id="delUser-@user.id" value="@controllers.routes.UserController.delete(user.id)" type="button" class="delUser btn btn-default"><i class="fa fa-trash-o"></i></button>
+                                        <button id="resetUserPw-@user.id" value="" type="button" class="resetUserPw btn btn-default"><i class="fa fa-key"></i></button>
+                                        <button id="setUserPoints-@user.id" value="@controllers.routes.UserController.setPoints(user.id, 99)" type="button" class="setUserPoints btn btn-default"><i class="fa fa-star"></i></button>
+                                    </div>
+                                </td>
+                            </tr>
+                            }
+
+                            </tbody>
+                            <caption>Alle Benutzer in der Datenbank</caption>
+                        </table>
+                    </div>
+                    <hr />
+                    <h4>Legende</h4>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <a href="#" disabled="" class="btn btn-default">
+                                <i class="fa fa-trash-o"></i>
+                            </a>
+                            <span style="padding-left:20px;"><i>Benutzer löschen</i></span>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="#" disabled="" class="btn btn-default">
+                                <i class="fa fa-key"></i>
+                            </a>
+                            <span style="padding-left:20px;"><i>Passwort Zurücksetzen</i></span>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="#" disabled="" class="btn btn-default">
+                                <i class="fa fa-star"></i>
+                            </a>
+                            <span style="padding-left:20px;"><i>Punktestand ändern</i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @helper.javascriptRouter("jsRoutes")(
+        routes.javascript.UserController.setPoints,
+        routes.javascript.UserController.setRole
+    )
+
+    <script type="text/javascript">
+        $('.delUser').click(function(){
+            var link = this.value;
+            bootbox.confirm("<h3>Wollen Sie diesen Benutzer wirklich löschen?</h3>", function(result) {
+                if (result){
+                    window.location.href =  link;
+                }
+            });
+        });
+
+        $('.setUserPoints').click(function(){
+            var userId = this.id.split("-")[1];
+            bootbox.prompt("<h3>Neuer Punktestand?</h3>", function(result) {
+                if (result != null && result != "") {
+                    window.location.href =  jsRoutes.controllers.UserController.setPoints(userId, result).url
+                }
+            });
+        })
+
+        $(".roleSwitch input:radio").change(function(){
+            var userId = this.name.split("-")[1];
+            var userRole = this.value;
+            $.get(jsRoutes.controllers.UserController.setRole(userId, userRole).url);
+        })
+    </script>
+</div>
+}

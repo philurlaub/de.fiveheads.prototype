@@ -1,4 +1,4 @@
-@(title: String)(content: Html)
+@(title: String, notification: Html = null)(content: Html)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,12 +18,12 @@
 
 <!--link rel="stylesheet" type="text/css" href="assets/plugins/codeprettifier/prettify.css" />
 <link rel="stylesheet" type="text/css" href="assets/plugins/form-toggle/toggles.css" />
-<link rel="stylesheet" type="text/css" href="assets/js/jqueryui.css">
+
 <link rel="stylesheet" type="text/css" href="assets/plugins/form-daterangepicker/daterangepicker-bs3.css">
 <link rel="stylesheet" type="text/css" href="assets/plugins/jqueryui-timepicker/jquery.ui.timepicker.css"-->
 
 
-<!-- <script type="text/javascript" src="assets/js/less.js"></script> -->
+    <!-- <script type="text/javascript" src="assets/js/less.js"></script> -->
     <script type="text/javascript" src="assets/js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="assets/js/jqueryui-1.10.3.min.js"></script>
     <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
@@ -36,8 +36,12 @@
     <script type="text/javascript" src="assets/plugins/sparklines/jquery.sparklines.min.js"></script>
     <script type="text/javascript" src="assets/plugins/form-toggle/toggle.min.js"></script>
     <script type="text/javascript" src="assets/js/placeholdr.js"></script-->
+
+    <script type="text/javascript" src="assets/js/bootbox.min.js"></script>
+
     <script type="text/javascript" src="assets/js/application.js"></script>
     <script type="text/javascript" src="assets/js/AppHelper.js"></script>
+
 </head>
 
 <body class="">
@@ -101,55 +105,50 @@
     </header>
 
     <div id="page-container">
-        <!-- BEGIN SIDEBAR -->
         <nav id="page-leftbar" role="navigation">
-                <!-- BEGIN SIDEBAR MENU -->
+            <!-- BEGIN SIDEBAR MENU -->
             <ul class="acc-menu" id="sidebar">
 
-
-                <li><a href="@controllers.routes.ArticleController.articlelist"><i class="fa fa-list"></i> <span>Artikelliste</span></a></li>
-                <li><a href="@controllers.routes.ArticleController.rating"><i class="fa fa-star-half-empty"></i> <span>Artikel bewerten</span></a></li>
-
+                <li><a href="@controllers.routes.Application.index"><i class="fa fa-home"></i><span>Dashboard</span></a></li>
+                <li><a href="@controllers.routes.RatingController.rating"><i class="fa fa-star-half-empty"></i><span>Artikel bewerten</span></a></li>
+                <li class="divider"></li>
+                <li><a href="@controllers.routes.ArticleController.articlelist"><i class="fa fa-list"></i><span>Artikelliste</span></a></li>
+                <li><a href="@controllers.routes.UserController.userlist"><i class="fa fa-user"></i><span>Benutzermanagement</span></a></li>
 
             </ul>
             <!-- END SIDEBAR MENU -->
         </nav>
 
 
-<div id="page-content">
-	<div id="wrap">
-		<div id="page-heading">
-			<ol class="breadcrumb">
-				<li><a href="@controllers.routes.Application.index">Dashboard</a></li>
-			</ol>
+        <div id="page-content">
+            <!-- BEGIN page-content -->
+            <div id="wrap">
 
-		</div>
+                <div class="container">
 
-        @content
+                    <!-- Benachrichtigungen werden hier per jQuery eingefügt  -->
+                    <div id="notificationBar" class="container"></div>
 
-	</div> <!--wrap -->
-</div> <!-- page-content -->
+                    @content
+
+                </div>
+
+            </div>
+            <!-- END page-content -->
+        </div>
 
     <footer role="contentinfo">
+        <!-- BEGIN FOOOTER -->
         <div class="clearfix">
             <ul class="list-unstyled list-inline">
                 <li>five head solutions &copy; 2013</li>
                 <button class="pull-right btn btn-inverse-alt btn-xs hidden-print" id="back-to-top"><i class="fa fa-arrow-up"></i></button>
             </ul>
         </div>
+        <!-- END FOOTER -->
     </footer>
 
 </div> <!-- page-container -->
-
-<!--
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-
-<script>!window.jQuery && document.write(unescape("%3Cscript src="assets/js/jquery-1.10.2.min.js"%3E%3C/script%3E"))</script>
-<script type="text/javascript">!window.jQuery.ui && document.write(unescape("%3Cscript src="assets/js/jqueryui-1.10.3.min.js"))</script>
--->
-
-
 
 </body>
 </html>

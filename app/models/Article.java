@@ -20,22 +20,27 @@ public class Article extends Model {
 
     @Id
     @GeneratedValue
-    private Long id;
+    public Long id;
 
+    // Enthält den Titel des Artikels
     @Constraints.Required
     @Formats.NonEmpty
     public String title;
 
+    // Enthält den Text des Artikels
     @Constraints.Required
     @Column(columnDefinition = "TEXT")
     public String content;
 
+    // Enthält das Datum der Veröffentlichung
     @Formats.DateTime(pattern="dd.MM.yyyy")
     @Constraints.Required
     public Date publicationDate;
 
+    // NOCHT NOCHT GENUTZT - WEITERE ARTIKEL ATTTRIBUTE
     public String language;
 
+    // Datenbankrelation zu der Tabelle "rating" festlegen
     @OneToMany
     private List<Rating> ratingList;
 
@@ -45,8 +50,14 @@ public class Article extends Model {
         return null;
     }
 
+    // Suche Artikel anhand der ID
+    public static Article findById(Long id) {
+        return find.where().eq("id", id).findUnique();
+    }
+
     // Speichern eines neuen Artikels
     public static Article create(Article article) {
+        article.content = article.content.replaceAll("(\r\n|\n)", "<br />");
         article.save();
         return article;
     }
@@ -54,18 +65,18 @@ public class Article extends Model {
     // Objekt für query Abfragen
     public static Finder<String,Article> find = new Finder<String,Article>(String.class, Article.class);
 
-    // Liefert alle Artikel in der Datenbank als Liste
+    // Liefert alle Artikel in der Datenbank als List
     public static List<Article> findAll() {
         return find.all();
     }
 
     // Finde alle Artikel zu einem User, die noch nicht bewertet wurden
-    public static Article getUnratedToUserEmail(String email) {
+    public static Article getUnratedToUserEmail(Long id) {
 
         // Da ebean die query nicht out of the box liefert muss eine Abfrage von Hand erfolgen
         String sql = "SELECT article.id, article.title, article.content, article.publication_date, article.language  FROM article " +
                      "LEFT JOIN rating ON rating.article_id = article.id " +
-                     "WHERE user_email not like '"+ email +"' or rating.article_id is null;";
+                     "WHERE user_id not like '"+ id +"' or rating.article_id is null;";
         // Rückgabewerte auf Objekt mappen
         RawSql rawSql =
             RawSqlBuilder
@@ -91,16 +102,19 @@ public class Article extends Model {
             return null;
     }
 
-   // Alle Artikel löschen
-   public static void deleteAll(){
+    // Alle Artikel löschen
+    public static void deleteAll(){
         Ebean.delete(findAll());
     }
 
-    // Stringrepräsentation eines Objektes
+    // Einen Artikel löschen
+    public static void delete(Long id) {
+        findById(id).delete();
+    }
+
+    // Stringrepräsentation eines Artikels
     public String toString() {
         return "Article(" + title + " Veröffentlicht am: " + publicationDate + " mit dem Inhalt " + content + ")";
     }
-
-
 }
 

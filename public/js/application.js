@@ -1,13 +1,7 @@
 // ------------------------------
 // Sidebar Accordion Menu
 // ------------------------------
-
 $(function () {
-    //if($.cookie('admin_leftbar_collapse') === 'collapse-leftbar') {
-    //    $('body').addClass('collapse-leftbar');
-    //} else {
-    //    $('body').removeClass('collapse-leftbar');
-    //}
 
     $('body').on('click', 'ul.acc-menu a', function() {
         var LIs = $(this).closest('ul.acc-menu').children('li');
@@ -72,16 +66,6 @@ $(function () {
             $(this).find('ul.acc-menu').css('visibility', 'hidden');
     });
 
-
-    // Reads Cookie for Collapsible Leftbar 
-    // if($.cookie('admin_leftbar_collapse') === 'collapse-leftbar')
-    //     $("body").addClass("collapse-leftbar");
-
-    //Make only visible area scrollable
-    $("#widgetarea").css({"max-height":$("body").height()});
-    //Bind widgetarea to nicescroll
-    $("#widgetarea").niceScroll({horizrailenabled:false});
-
     // Toggle Buttons
     // ------------------------------
 
@@ -110,46 +94,21 @@ $(function () {
         leftbarScrollShow();
     });
 
-    // On click of right menu
-    $("a#rightmenu-trigger").click(function () {
-        $("body").toggleClass("show-rightbar");
-        widgetheight();
-        
-        if($.cookie('admin_rightbar_show') === 'show-rightbar')
-                $.cookie('admin_rightbar_show', '');
-            else
-                $.cookie('admin_rightbar_show', 'show-rightbar');
-    });
-
     //set minimum height of page
     dh=($(document).height()-40);
     $("#page-content").css("min-height",dh+"px");
 
 });
 
-// Recalculate widget area on a widget being shown
-$(".widget-body").on('shown.bs.collapse', function () {
-    widgetheight();
-});
 
 // -------------------------------
 // Sidebars Positionings
 // -------------------------------
 
-$(window).scroll(function(){
-    $("#widgetarea").getNiceScroll().resize();
-    $(".chathistory").getNiceScroll().resize();
-    rightbarTopPos();
-    leftbarTopPos();
-});
-
 $(window).resize(function(){
-    widgetheight();
-
-    rightbarRightPos();
     $("#sidebar").getNiceScroll().resize();
 });
-rightbarRightPos();
+
 
 
 // -------------------------------
@@ -230,7 +189,7 @@ function rightbarRightPos () {
     }
 }
 
-// Match page height with Sidebar Height
+// Contentbereichhöhe gleich der Leftbarhöhe setzten
 function checkpageheight() {
     sh=$("#page-leftbar").height();
     ch=$("#page-content").height();
@@ -238,16 +197,9 @@ function checkpageheight() {
     if (sh>ch) $("#page-content").css("min-height",sh+"px");
 }
 
-// Recalculate widget area to area visible
-function widgetheight() {
-    $("#widgetarea").css({"max-height":$("body").height()});
-    $("#widgetarea").getNiceScroll().resize();
-}
-
 // -------------------------------
-// Back to Top button
+// Zurück nach oben
 // -------------------------------
-
 $('#back-to-top').click(function () {
     $('body,html').animate({
         scrollTop: 0
@@ -256,47 +208,13 @@ $('#back-to-top').click(function () {
 });
 
 // -------------------------------
-// Panel Collapses
+// Panel Collapses Funktion
 // -------------------------------
 $('a.panel-collapse').click(function() {
     $(this).children().toggleClass("fa-chevron-down fa-chevron-up");
     $(this).closest(".panel-heading").next().slideToggle({duration: 200});
     $(this).closest(".panel-heading").toggleClass('rounded-bottom');
     return false;
-});
-
-// -------------------------------
-// Quick Start
-// -------------------------------
-$('#headerbardropdown').click(function() {
-    $('#headerbar').css('top',0);
-    return false;
-});
-
-$('#headerbardropdown').click(function(event) {
-  $('html').one('click',function() {
-    $('#headerbar').css('top','-1000px');
-  });
-
-  event.stopPropagation();
-});
-
-
-// -------------------------------
-// Keep search open on click
-// -------------------------------
-$('#search>a').click(function () {
-    $('#search').toggleClass('keep-open');
-    $('#search>a i').toggleClass("opacity-control");
-});
-
-$('#search').click(function(event) {
-  $('html').one('click',function() {
-    $('#search').removeClass('keep-open');
-    $('#search>a i').addClass("opacity-control");
-  });
-
-  event.stopPropagation();
 });
 
 //Presentational: set all panel-body with br0 if it has panel-footer
