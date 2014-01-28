@@ -5,9 +5,11 @@ import javax.persistence.*;
 
 import com.avaje.ebean.*;
 import com.avaje.ebean.Query;
+import com.avaje.ebean.annotation.Formula;
 import play.db.ebean.*;
 import play.data.format.*;
 import play.data.validation.*;
+import views.html.helper.select;
 
 /**
  * UserController entity managed by Ebean
@@ -27,6 +29,9 @@ public class Article extends Model {
     @Formats.NonEmpty
     public String title;
 
+    // Schalter ob ein Artikel für das Training verwendet wird oder durch das neuronale Netz eingestuft wird
+    public String typeSwitch;
+
     // Enthält den Text des Artikels
     @Constraints.Required
     @Column(columnDefinition = "TEXT")
@@ -37,11 +42,19 @@ public class Article extends Model {
     @Constraints.Required
     public Date publicationDate;
 
+    // Enhält die durchschnittliche Bewertung
+    // Dieser Wert wird in positiv oder negativ übersetzt um das neuronale Netz zu trainieren
+    public float averageScore;
+
+    // Enthält die Werte {pos, neg}, die zum training benötigt werden
+    public String classification;
+
     // NOCHT NOCHT GENUTZT - WEITERE ARTIKEL ATTTRIBUTE
     public String language;
 
     // Datenbankrelation zu der Tabelle "rating" festlegen
-    @OneToMany
+    // CascadeType => Zugehörige Ratings ebenfalls löschen
+    @OneToMany(cascade = javax.persistence.CascadeType.REMOVE)
     private List<Rating> ratingList;
 
     // Notwendig für Formularverarbeitung -> null = keine Fehler
@@ -76,7 +89,7 @@ public class Article extends Model {
         // Da ebean die query nicht out of the box liefert muss eine Abfrage von Hand erfolgen
         String sql = "SELECT article.id, article.title, article.content, article.publication_date, article.language  FROM article " +
                      "LEFT JOIN rating ON rating.article_id = article.id " +
-                     "WHERE user_id not like '"+ id +"' or rating.article_id is null;";
+                     "WHERE (user_id not like '"+ id +"' or rating.article_id is null) and article.type_switch = 'user';";
         // Rückgabewerte auf Objekt mappen
         RawSql rawSql =
             RawSqlBuilder
@@ -116,5 +129,55 @@ public class Article extends Model {
     public String toString() {
         return "Article(" + title + " Veröffentlicht am: " + publicationDate + " mit dem Inhalt " + content + ")";
     }
+
+    public void updateAVGScore(){
+        float sum = 0;
+        for(Rating rating: ratingList){
+            sum+= rating.score;
+        }
+        if (ratingList.size() > 0)
+            averageScore = sum/ratingList.size();
+        else
+            averageScore = 0;
+
+        this.save();
+    }
+
+    private int countWords(){
+        int counter = 0;
+        boolean word = false;
+        int endOfLine = content.length() - 1;
+
+        for (int i = 0; i < content.length(); i++) {
+            // if the char is letter, word = true.
+            if (Character.isLetter(content.charAt(i)) == true && i != endOfLine) {
+                word = true;
+                // if char isnt letter and there have been letters before (word
+                // == true), counter goes up.
+            } else if (Character.isLetter(content.charAt(i)) == false && word == true) {
+                counter++;
+                word = false;
+                // last word of String, if it doesnt end with nonLetter it
+                // wouldnt count without this.
+            } else if (Character.isLetter(content.charAt(i)) && i == endOfLine) {
+                counter++;
+            }
+        }
+        return counter;
+    }
+
+    public int getPoints(){
+        // Punkte berechnung
+        // Durchschnittlich ließt der Mensch 240 Wörter pro Minute
+        // Pro Leseminute gibt es 10 Punte, jedoch mindestens 5
+        int points = (int) (countWords()/240.0*10.0);
+        if (points < 5)
+            return 5;
+        else
+            return points;
+
+    }
+
+
 }
 

@@ -20,11 +20,19 @@ public class ArticleController extends Controller{
     }
 
     // GET Neuer Artikel
-    public static Result newarticle () {
+    public static Result newarticle() {
         return ok(
             addarticle.render(form(Article.class))
         );
     }
+
+    // GET Artikel Anzeigen
+    public static Result show(Long id){
+        return ok(
+            article.render(Article.findById(id))
+        );
+    }
+
 
     // POST Alle Artikel löschen
     public static Result deleteAll(){

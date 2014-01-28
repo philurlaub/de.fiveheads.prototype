@@ -95,5 +95,9 @@ public class User extends Model {
         return "User(" + email + ")";
     }
 
+    public void addPoints(Article article) {
+        points += article.getPoints();
+        this.save();
+    }
 }
 

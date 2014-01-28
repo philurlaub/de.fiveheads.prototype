@@ -10812,9 +10812,6 @@ header.navbar {
 }
 
 .nav .badge {
-    top: 4px;
-    left: 22px;
-    position: absolute;
     background-color: #e73c3c
 }
 

@@ -1,34 +1,35 @@
 @(article: Article)
 
-<div class="col-md-12">
-    <div class="panel panel-primary">
-        <div class="panel-heading ">
-            <h4>@article.title</h4>
-            <div class="options">
-                <a href="javascript:;" class="panel-collapse"><i class="fa fa-chevron-down"></i></a>
-                <a href="javascript:;" >@article.publicationDate.format("dd MMMM yyyy")</a>
+@main("Artikelliste") {
 
-            </div>
-        </div>
-        <div class="panel-body collapse in">
+    <div class="container"><!-- container -->
+        <h1 style="float:left">@article.title</h1>
+        <div><h1 style="text-align: right">@article.publicationDate.format("dd MMMM yyyy")</h1></div>
 
-            @Html(article.content)
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-body collapse in">
+                        @Html(article.content)
+                        <div class="panel-footer">
+                             <div class="pull-right">
+                                <a href="javascript:;" class="deleteModal-@article.id btn btn-danger-alt">Artikel löschen</a>
+                                <a href="@controllers.routes.WekaController.predictArticle(article.id)" class="btn btn-default">Artikel bewerten</a>
+                            </div>
+                        </div>
 
-            <div class="panel-footer">
-                <div class="pull-right">
-                    <a href="javascript:;" class="deleteModal-@article.id btn btn-danger-alt">Artikel löschen</a>
+                        <script type="text/javascript">
+                            $('.deleteModal-@article.id').click(function(){
+                                bootbox.confirm("<h3>Wollen Sie diesen Artikel wirklich löschen?</h3><br><div class='alert alert-dismissable alert-danger'>Bitte beachten Sie, dass alle Bewertungen zu diesem Artikel ebenfalls gelöscht werden!</div>", function(result) {
+                                    if (result){
+                                        window.location.href =  "@controllers.routes.ArticleController.delete(article.id)"
+                                    }
+                                });
+                            });
+                        </script>
+                    </div>
                 </div>
             </div>
-
-            <script type="text/javascript">
-                $('.deleteModal-@article.id').click(function(){
-                    bootbox.confirm("<h3>Wollen Sie diesen Artikel wirklich löschen?</h3><br><div class='alert alert-dismissable alert-danger'>Bitte beachten Sie, dass alle Bewertungen zu diesem Artikel ebenfalls gelöscht werden!</div>", function(result) {
-                        if (result){
-                            window.location.href =  "@controllers.routes.ArticleController.delete(article.id)"
-                        }
-                    });
-                });
-            </script>
         </div>
     </div>
-</div>
+}

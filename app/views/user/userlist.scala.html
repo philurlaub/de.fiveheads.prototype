@@ -15,7 +15,7 @@
                                 <th style="padding-right:100px">E-Mail</th>
                                 <th>Punkte</th>
                                 <th>Registriert am</th>
-                                <th>User Rolle</th>
+                                <th>Benutzer Rolle</th>
                                 <th>Aktionen</th>
                             </tr>
                             </thead>
@@ -23,8 +23,8 @@
                             @users.map { user =>
                             <tr>
                                 <td align="left"><i>@user.email</i></td>
-                                <td align="left"><i>@user.points</i></td>
-                                <td align="left"><i>@user.registrationDate.format("dd MMMM yyyy")</i></td>
+                                <td align="left"><i><div class="badge badge-warning">@user.points</div></i></td>
+                                <td align="left"><i>@if(user.registrationDate != null) {@user.registrationDate.format("dd MMMM yyyy")}</i></td>
                                 <td class="roleSwitch">
                                     <label class="radio-inline">
                                         <input type="radio" name="roleSwitch-@user.id" value="user" @if(user.role == "user") {checked}> User
@@ -47,7 +47,7 @@
                             }
 
                             </tbody>
-                            <caption>Alle Benutzer in der Datenbank</caption>
+                            <caption><h2>Alle Benutzer in der Datenbank</h2></caption>
                         </table>
                     </div>
                     <hr />

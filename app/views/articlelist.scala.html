@@ -2,18 +2,93 @@
 
 @main("Artikelliste") {
 
-    <div class="container"><!-- container -->
-        <h1>Artikel in der Datenbank</h1>
-        <div class="row">
-              @articles.map { article =>
-                  @views.html.article(article)
-              }
+<div class="container"><!-- container -->
+    <h1>Artikel bearbeiten</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <div class="table-responsive">
+
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Wählen Sie ein Stichwort</label>
+                            <div class="col-sm-6">
+                                <select class="form-control" id="source">
+
+                                    <option value="AK">#Stichwort1</option>
+                                    <option value="HI">#Stichwort2</option>
+                                    <option value="HI">#Stichwort3</option>
+                                    <option value="HI">#Stichwort4</option>
+                                    <option value="HI">#Stichwort5</option>
+                                    <option value="HI">#Stichwort6</option>
+                                    <option value="HI">#Stichwort7</option>
+                                    <option value="HI">#Stichwort8</option>
+
+                                </select>
+
+                            </div>
+                            <a href="@controllers.routes.ArticleController.newarticle" class="btn btn-default">Neuer Artikel</a>
+                            <a href="@controllers.routes.ArticleController.deleteAll" class="btn btn-default">Alle Löschen</a>
+                        </div>
+
+                        <table id="userlist" class="table">
+                            <thead>
+                            <tr>
+                                <th style="padding-right:100px">ID</th>
+                                <th>Bewertung durchschnittlich</th>
+                                <th>Titel</th>
+                                <th>Veröffentlicht am</th>
+                                <th>Aktionen</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @articles.map { article =>
+                                <tr>
+                                    <td align="left"><i>@article.id</i></td>
+                                    <td><div class="badge badge-success">@article.averageScore</div></td>
+                                    <td align="left"><i>@article.title</i></td>
+                                    <td align="left"><i>@article.publicationDate.format("dd MMMM yyyy")</i></td>
+
+                                    <td align="left">
+                                        <div class="btn-group">
+                                            <button id="delArticle-@article.id" value="@controllers.routes.ArticleController.delete(article.id)" type="button" class="delArticle btn btn-default"><i class="fa fa-trash-o"></i></button>
+                                            <a id="showArticle-@article.id" href="@controllers.routes.ArticleController.show(article.id)" class="showArticle btn btn-default"><i class="fa  fa-sign-out"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+
+                            </tbody>
+                            <caption><h2>Artikel in der Datenbank</h2></caption>
+                        </table>
+                    </div>
+                    <hr />
+                    <h4>Legende</h4>
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <a href="#" disabled="" class="btn btn-default">
+                                <i class="fa fa-trash-o"></i>
+                            </a>
+                            <span style="padding-left:20px;"><i>Artikel löschen</i></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <a href="@controllers.routes.ArticleController.newarticle" class="btn btn-default">Neuer Artikel</a>
-        <a href="@controllers.routes.ArticleController.deleteAll" class="btn btn-default">Alle Löschen</a>
-
-        <script type="text/javascript" src="assets/plugins/form-toggle/toggle.min.js"></script>
-
-
     </div>
+
+    <script type="text/javascript">
+        $('.delArticle').click(function(){
+            var link = this.value;
+            bootbox.confirm("<h3>Wollen Sie diesen Artikel wirklich löschen?</h3>", function(result) {
+                if (result){
+                    window.location.href =  link;
+                }
+            });
+        });
+    </script>
+</div>
+
 }

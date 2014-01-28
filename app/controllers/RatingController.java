@@ -19,18 +19,26 @@ public class RatingController extends Controller {
     // GET Rating
     public static Result rating() {
         User user = User.findByEmail(session("email")) ;
-        return ok(
-                rating.render(Article.getUnratedToUserEmail(user.id))
-        );
+        Article article = Article.getUnratedToUserEmail(user.id);
+        if (article != null)
+            return ok(rating.render(article));
+        else
+            return ok(nothingtorate.render(user));
     }
 
     // POST Rating
     public static Result saveRating(Long article, Integer rating) {
+        User user = User.findByEmail(session("email"));
+        Article articleObject = Article.findById(article);
+
         Rating newRating = new Rating();
-        newRating.user = User.findByEmail(session("email"));
-        newRating.article = Article.findById(article);
+        newRating.user = user;
+        newRating.article = articleObject;
         newRating.score = rating;
         newRating.save();
+
+        articleObject.updateAVGScore();
+        user.addPoints(articleObject);
 
         return redirect(routes.RatingController.rating());
     }

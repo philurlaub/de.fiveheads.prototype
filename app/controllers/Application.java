@@ -2,6 +2,7 @@ package controllers;
 
 import models.Article;
 import models.User;
+import models.WekaTest;
 import play.api.Routes;
 import play.api.templates.Html;
 import play.mvc.*;

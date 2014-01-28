@@ -10,37 +10,22 @@
 	<meta name="author" content="five heads solutions">
 
     <!-- <link href="assets/less/styles.less" rel="stylesheet/less" media="all">  -->
-    <link rel="stylesheet" href="assets/css/styles.min.css">
+    <link rel="stylesheet" href="/assets/css/styles.min.css">
     <link href="http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600" rel="stylesheet" type="text/css">
 
 	<!-- The following CSS are included as plugins and can be removed if unused-->
-    <link rel="stylesheet" type="text/css" href="assets/js/jqueryui.css">
-
-<!--link rel="stylesheet" type="text/css" href="assets/plugins/codeprettifier/prettify.css" />
-<link rel="stylesheet" type="text/css" href="assets/plugins/form-toggle/toggles.css" />
-
-<link rel="stylesheet" type="text/css" href="assets/plugins/form-daterangepicker/daterangepicker-bs3.css">
-<link rel="stylesheet" type="text/css" href="assets/plugins/jqueryui-timepicker/jquery.ui.timepicker.css"-->
-
+    <link rel="stylesheet" type="text/css" href="/assets/js/jqueryui.css">
 
     <!-- <script type="text/javascript" src="assets/js/less.js"></script> -->
-    <script type="text/javascript" src="assets/js/jquery-1.10.2.min.js"></script>
-    <script type="text/javascript" src="assets/js/jqueryui-1.10.3.min.js"></script>
-    <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="assets/js/jquery.cookie.js"></script>
-    <script type="text/javascript" src="assets/js/enquire.js"></script>
-
-    <script type="text/javascript" src="assets/js/jquery.nicescroll.min.js"></script>
-    <!--script type="text/javascript" src="assets/plugins/codeprettifier/prettify.js"></script>
-    <script type="text/javascript" src="assets/plugins/easypiechart/jquery.easypiechart.min.js"></script>
-    <script type="text/javascript" src="assets/plugins/sparklines/jquery.sparklines.min.js"></script>
-    <script type="text/javascript" src="assets/plugins/form-toggle/toggle.min.js"></script>
-    <script type="text/javascript" src="assets/js/placeholdr.js"></script-->
-
-    <script type="text/javascript" src="assets/js/bootbox.min.js"></script>
-
-    <script type="text/javascript" src="assets/js/application.js"></script>
-    <script type="text/javascript" src="assets/js/AppHelper.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jqueryui-1.10.3.min.js"></script>
+    <script type="text/javascript" src="/assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="/assets/js/enquire.js"></script>
+    <script type="text/javascript" src="/assets/js/jquery.nicescroll.min.js"></script>
+    <script type="text/javascript" src="/assets/js/bootbox.min.js"></script>
+    <script type="text/javascript" src="/assets/js/application.js"></script>
+    <script type="text/javascript" src="/assets/js/AppHelper.js"></script>
 
 </head>
 
@@ -55,53 +40,19 @@
 
         <ul class="nav navbar-nav pull-right toolbar">
         	<li class="dropdown">
-        		<a href="extras-blank.php.html#" class="dropdown-toggle username" data-toggle="dropdown"><span class="hidden-xs">Max Mustermann<i class="fa fa-caret-down"></i></span><img src="assets/demo/avatar/dangerfield.png" alt="Dangerfield" /></a>
+        		<a href="extras-blank.php.html#" class="dropdown-toggle username" data-toggle="dropdown"><span class="hidden-xs">@ctx.session().get("email")<i class="fa fa-caret-down"></i></span></a>
         		<ul class="dropdown-menu userinfo arrow">
-        			<li class="username">
-                        <a href="extras-blank.php.html#">
-        				    <div class="pull-left"><img class="userimg" src="assets/demo/avatar/dangerfield.png" alt="Jeff Dangerfield"/></div>
-        				    <div class="pull-right"><h5>Howdy, Max!</h5><small>Logged in as <span>user275</span></small></div>
-                        </a>
-        			</li>
-        			<li class="userlinks">
+        		    <li class="userlinks">
         				<ul class="dropdown-menu">
-        					<li><a href="extras-blank.php.html#">Edit Profile <i class="pull-right fa fa-pencil"></i></a></li>
-        					<li><a href="extras-blank.php.html#">Account <i class="pull-right fa fa-cog"></i></a></li>
-        					<li><a href="extras-blank.php.html#">Help <i class="pull-right fa fa-question-circle"></i></a></li>
         					<li class="divider"></li>
         					<li><a href="@controllers.routes.Application.logout" class="text-right">Sign Out</a></li>
         				</ul>
         			</li>
         		</ul>
         	</li>
-        	<li class="dropdown">
-        		<a href="extras-blank.php.html#" class="hasnotifications dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i><span class="badge">1</span></a>
-        		<ul class="dropdown-menu messeges arrow">
-        			<li>
-        				<span>You have 1 new message(s)</span>
-        				<span><a href="extras-blank.php.html#">Mark all Read</a></span>
-        			</li>
-        			<li><a  class="dd-viewall" href="extras-blank.php.html#">View All Messages</a></li>
-        		</ul>
-        	</li>
-        	<li class="dropdown">
-        		<a href="extras-blank.php.html#" class="hasnotifications dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bell"></i><span class="badge">3</span></a>
-        		<ul class="dropdown-menu notifications arrow">
-        			<li>
-        				<span>You have 3 new notification(s)</span>
-        				<span><a href="extras-blank.php.html#">Mark all Seen</a></span>
-        			</li>
-        			<li>
-        				<a href="extras-blank.php.html#" class="notification-success">
-        					<span class="time">18 hrs</span>
-        					<i class="fa fa-check"></i>
-        					<span class="msg">Account Created. </span>
-        				</a>
-        			</li>
-        			<li><a href="extras-blank.php.html#" class="dd-viewall">View All Notifications</a></li>
-				</ul>
-			</li>
+            <li><a href="" class="username"><span class="hidden-xs">Dein Punktestand:</span> <span class="badge badge-primary">@User.findByEmail(ctx.session().get("email")).points</span></a></li>
 		</ul>
+
     </header>
 
     <div id="page-container">
@@ -113,7 +64,10 @@
                 <li><a href="@controllers.routes.RatingController.rating"><i class="fa fa-star-half-empty"></i><span>Artikel bewerten</span></a></li>
                 <li class="divider"></li>
                 <li><a href="@controllers.routes.ArticleController.articlelist"><i class="fa fa-list"></i><span>Artikelliste</span></a></li>
-                <li><a href="@controllers.routes.UserController.userlist"><i class="fa fa-user"></i><span>Benutzermanagement</span></a></li>
+                <li><a href="@controllers.routes.UserController.userlist"><i class="fa fa-group"></i><span>Benutzermanagement</span></a></li>
+                <li><a href="@controllers.routes.KeywordController.keywordStats"><i class="fa fa-bar-chart-o"></i><span>Stichwort Statistik</span></a></li>
+                <li class="divider"></li>
+                <li><a href="@controllers.routes.WekaController.options"><i class="fa fa-gears"></i><span>WEKA Optionen</span></a></li>
 
             </ul>
             <!-- END SIDEBAR MENU -->
@@ -127,7 +81,21 @@
                 <div class="container">
 
                     <!-- Benachrichtigungen werden hier per jQuery eingefügt  -->
-                    <div id="notificationBar" class="container"></div>
+                    <div id="notificationBar" class="container">
+                        @if(ctx().args.containsKey("alert-success")){
+                            <div class="alert alert-dismissable alert-success">
+                                @ctx.args.get("alert-success")
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            </div>
+                        }
+
+                        @if(ctx().args.containsKey("alert-danger")){
+                            <div class="alert alert-dismissable alert-danger">
+                                @ctx.args.get("alert-danger")
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                            </div>
+                        }
+                    </div>
 
                     @content
 

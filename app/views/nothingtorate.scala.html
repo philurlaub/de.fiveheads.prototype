@@ -1,0 +1,31 @@
+@(user: User)
+
+@main("Artikel Bewerten") {
+<div class="container"><!-- container -->
+    <h1>Hooray!, du hast alle Artikel bewertet!</h1>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <p>
+                        Wir werden dich per E-Mail benachrichten falls neue Artikel bewertet werden müssen.
+                    </p>
+
+                    <div class="col-xs-12 col-md-3 col-sm-6 col-lg-3">
+                        <a class="info-tiles tiles-success" href="#">
+                            <div class="tiles-heading">
+                                <div class="pull-left">Dein Punktestand</div>
+                                <div class="pull-right">@user.email</div>
+                            </div>
+                            <div class="tiles-body">
+                                <div class="pull-left"><i class="fa fa-check"></i></div>
+                                <div class="pull-right">@user.points</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}

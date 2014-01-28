@@ -6,8 +6,11 @@
 create table article (
   id                        bigint auto_increment not null,
   title                     varchar(255),
+  type_switch               varchar(255),
   content                   TEXT,
   publication_date          datetime,
+  average_score             float,
+  classification            varchar(255),
   language                  varchar(255),
   constraint pk_article primary key (id))
 ;
