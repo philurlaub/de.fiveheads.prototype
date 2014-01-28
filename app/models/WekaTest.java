@@ -156,7 +156,7 @@ public class WekaTest {
         long diff = end - offset + 1;
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader("/Users/paul/Downloads/WEKA TEST/IMDB-PP-TEST.arff"));
+            BufferedReader br = new BufferedReader(new FileReader("import/IMDB-PP-TEST.arff"));
             String line;
 
             br.readLine();
