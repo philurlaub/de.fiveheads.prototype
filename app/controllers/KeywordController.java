@@ -13,7 +13,6 @@ import views.html.keywordstats;
 
 @Security.Authenticated(Secured.class)
 public class KeywordController extends Controller {
-
     public static Result keywordStats (){
         return ok(
                 keywordstats.render()

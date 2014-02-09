@@ -1,22 +1,148 @@
 @main("Prämie einlösen") {
 <div class="container"><!-- container -->
 
-    <h1>RapidReckon - Slogan!</h1>
+    <h1>Wähle eine Kategorie und löse deine Punkte ein!</h1>
 
-    <div class="panel panel-primary">
-        <div class="panel-body">
-            <h3>Eine detailierte Anleitung für Benutzer!</h3>
-
-            <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
-
-            <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.</p>
-
-            <p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.</p>
-
-            <p>Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
-
+    <div class="row">
+        <div class="col-md-4">
+            <a href="@controllers.routes.RatingController.getReward?home" class="shortcut-tiles tiles-info">
+                <div class="tiles-body">
+                    <div class="pull-left"><i class="fa fa-home"></i></div>
+                    <div class="pull-right"><span class="badge">5</span></div>
+                </div>
+                <div class="tiles-footer">
+                    Haus und Garten
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="@controllers.routes.RatingController.getReward?travel" class="shortcut-tiles tiles-green">
+                <div class="tiles-body">
+                    <div class="pull-left"><i class="fa fa fa-plane"></i></div>
+                    <div class="pull-right"><span class="badge">7</span></div>
+                </div>
+                <div class="tiles-footer">
+                    Reisen
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="@controllers.routes.RatingController.getReward?dinner" class="shortcut-tiles tiles-success">
+                <div class="tiles-body">
+                    <div class="pull-left"><i class="fa  fa-glass"></i></div>
+                    <div class="pull-right"><span class="badge">2</span></div>
+                </div>
+                <h2 class="tiles-footer">
+                    Essen & Trinken
+                </h2>
+            </a>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <a href="@controllers.routes.RatingController.getReward?donate" class="shortcut-tiles tiles-brown">
+                <div class="tiles-body">
+                    <div class="pull-left"><i class="fa fa-medkit"></i></div>
+                    <div class="pull-right"><span class="badge">1</span></div>
+                </div>
+                <div class="tiles-footer">
+                    Punkte spenden
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="@controllers.routes.RatingController.getReward?shopping" class="shortcut-tiles tiles-orange">
+                <div class="tiles-body">
+                    <div class="pull-left"><i class="fa fa fa-shopping-cart"></i></div>
+                    <div class="pull-right"><span class="badge">7</span></div>
+                </div>
+                <div class="tiles-footer">
+                    Shopping
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="@controllers.routes.RatingController.getReward?exchange" class="shortcut-tiles tiles-magenta">
+                <div class="tiles-body">
+                    <div class="pull-left"><i class="fa  fa-exchange"></i></div>
+                    <div class="pull-right"><span class="badge">2</span></div>
+                </div>
+                <h2 class="tiles-footer">
+                    Punkte tauschen
+                </h2>
+            </a>
+        </div>
+    </div>
+
+    @if(!request().queryString().keySet().isEmpty()){
+        @request().queryString().keySet().iterator().next() match {
+            case "home" => {
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h3>Löse deine Punkte ein</h3>
+                        Dummy
+                    </div>
+                </div>
+
+            }
+            case "travel" => {travel}
+            case "dinner" => {dinner}
+            case "donate" => {
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+
+                        <img src="/assets/img/drk-logo.png" class="pull-left img-thumbnail" style="margin-right: 20px" />
+                        <h3>Spende deine Punkte an das Deutsche Rote Kreuz</h3>
+                        <p>Das Deutsche Rot Kreuz rettet Menschen, hilft in Notlagen, bietet Menschen eine Gemeinschaft, steht den Armen und Bedürftigen bei und wacht über das humanitäre Völkerrecht - in Deutschland und in der ganzen Welt. Entdecken Sie die Vielfalt des Deutschen Roten Kreuzes!</p>
+                        <button class="btn btn-primary pull-right">Einlösen</button>
+                    </div>
+                </div>
+            }
+            case "shopping" => {
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <img src="/assets/img/amazon-10.jpg" class="pull-left img-thumbnail" style="margin-right: 20px; max-width: 222px;" />
+                        <h3>Löse deine Punkte gegen einen 10€ Amazon Gutschein ein</h3>
+                        <p>Die Amazon.com, Inc. ist US-amerikanischer Online-Versandhändler mit einer breit gefächerten Produktpalette. Nach eigenen Angaben hat Amazon als Marktführer des Handels im Internet die weltweit größte Auswahl für Bücher, CDs und Videos. Über die integrierten Verkaufsplattformen „Marketplace“ und „z-Shops“ können auch Privatpersonen oder andere Unternehmen im Rahmen des Online-Handels neue und gebrauchte Produkte anbieten. Unter eigener Marke wird neben dem Amazon Kindle als Lesegerät für elektronische Bücher auch der Amazon Kindle Fire, ein Tablet-Computer, vertrieben.</p>
+                        <button class="btn btn-primary pull-right">Einlösen</button>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <img src="/assets/img/amazon-15.jpg" class="pull-left img-thumbnail" style="margin-right: 20px; max-width: 222px;" />
+                        <h3>Löse deine Punkte gegen einen 15€ Amazon Gutschein ein</h3>
+                        <p>Die Amazon.com, Inc. ist US-amerikanischer Online-Versandhändler mit einer breit gefächerten Produktpalette. Nach eigenen Angaben hat Amazon als Marktführer des Handels im Internet die weltweit größte Auswahl für Bücher, CDs und Videos. Über die integrierten Verkaufsplattformen „Marketplace“ und „z-Shops“ können auch Privatpersonen oder andere Unternehmen im Rahmen des Online-Handels neue und gebrauchte Produkte anbieten. Unter eigener Marke wird neben dem Amazon Kindle als Lesegerät für elektronische Bücher auch der Amazon Kindle Fire, ein Tablet-Computer, vertrieben.</p>
+                        <button class="btn btn-primary pull-right">Einlösen</button>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <img src="/assets/img/amazon-30.jpg" class="pull-left img-thumbnail" style="margin-right: 20px; max-width: 222px;" />
+                        <h3>Löse deine Punkte gegen einen 30€ Amazon Gutschein ein</h3>
+                        <p>Die Amazon.com, Inc. ist US-amerikanischer Online-Versandhändler mit einer breit gefächerten Produktpalette. Nach eigenen Angaben hat Amazon als Marktführer des Handels im Internet die weltweit größte Auswahl für Bücher, CDs und Videos. Über die integrierten Verkaufsplattformen „Marketplace“ und „z-Shops“ können auch Privatpersonen oder andere Unternehmen im Rahmen des Online-Handels neue und gebrauchte Produkte anbieten. Unter eigener Marke wird neben dem Amazon Kindle als Lesegerät für elektronische Bücher auch der Amazon Kindle Fire, ein Tablet-Computer, vertrieben.</p>
+                        <button class="btn btn-primary pull-right">Einlösen</button>
+                    </div>
+                </div>
+            }
+            case "exchange" => {
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <img src="/assets/img/miles-and-more.jpg" class="pull-left img-thumbnail" style="margin-right: 20px; max-width: 222px;" />
+                        <h3>Punkte gegen Flugmilen tauschen</h3>
+                        <p>Miles & More ist das Vielfliegerprogramm der Lufthansa, das am 1. Januar 1993 gestartet wurde und dem seither weitere Fluggesellschaften beigetreten sind.</p>
+                        <p>Mit über 20 Millionen Teilnehmern ist Miles & More das größte Vielfliegerprogramm Europas. Die Teilnahme an Miles & More ist kostenlos. Prämienmeilen erhalten Sie für Flüge mit Lufthansa, den Partnern der Star Alliance, weiteren Airline-Partnern und zahlreichen anderen Miles & More Kooperationspartnern.
+                        </p>
+                        <button class="btn btn-primary pull-right">Einlösen</button>
+                    </div>
+                </div>
+            }
+        }
+    }
+
+
+
+
 </div>
 
 }

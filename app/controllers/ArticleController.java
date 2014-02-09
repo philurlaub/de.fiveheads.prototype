@@ -33,7 +33,6 @@ public class ArticleController extends Controller{
         );
     }
 
-
     // POST Alle Artikel löschen
     public static Result deleteAll(){
         Article.deleteAll();

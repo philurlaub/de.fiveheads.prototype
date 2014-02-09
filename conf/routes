@@ -2,13 +2,15 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-# Home page
+# Static pages
 GET     /                                       controllers.Application.index()
+GET     /reward                                 controllers.RatingController.getReward()
 
 # Article Management
 GET     /articlelist                            controllers.ArticleController.articlelist()
 GET     /newarticle                             controllers.ArticleController.newarticle()
 GET     /deleteall                              controllers.ArticleController.deleteAll()
+
 # Interessant URL regex! Whooop!
 GET     /deletearticle/$id<[0-9]+>              controllers.ArticleController.delete(id: Long)
 GET     /showarticle/$id<[0-9]+>                controllers.ArticleController.show(id: Long)

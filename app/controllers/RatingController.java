@@ -42,4 +42,11 @@ public class RatingController extends Controller {
 
         return redirect(routes.RatingController.rating());
     }
+
+    // GET Reward Page
+    public static Result getReward() {
+        return ok(
+                getreward.render()
+        );
+    }
 }

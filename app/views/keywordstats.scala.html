@@ -1,65 +1,110 @@
 @main("Prämie einlösen") {
 <div class="container"><!-- container -->
 
-    <h1>Stichwort Statistik</h1>
+        <div id="statOptions">
+            <div class="btn-toolbar">
+                <div class="btn-group hidden-xs">
+                    <a href="#" class="btn btn-default dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cloud-download"></i><span class="hidden-sm"> Exportieren</span><span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Text File (*.txt)</a></li>
+                        <li><a href="#">Excel File (*.xlsx)</a></li>
+                        <li><a href="#">PDF File (*.pdf)</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <h1>Stichwort Statistik</h1>
+
 
     <div class="panel panel-primary">
         <div class="panel-body">
-            <h3>Wählen Sie ein Keyword</h3>
+
 
             <div class="form-group">
                 <div class="col-sm-6">
+                    <h3>Wählen Sie ein Stichwort</h3>
                     <select class="form-control" id="source">
 
-                        <option value="AK">#Stichwort1</option>
-                        <option value="HI">#Stichwort2</option>
-                        <option value="HI">#Stichwort3</option>
-                        <option value="HI">#Stichwort4</option>
-                        <option value="HI">#Stichwort5</option>
-                        <option value="HI">#Stichwort6</option>
-                        <option value="HI">#Stichwort7</option>
-                        <option value="HI">#Stichwort8</option>
+                        <option value="AK">Apple iPhone 4</option>
+                        <option value="HI">Apple iPhone 5s</option>
+                        <option value="HI">Samsung Galaxy S4</option>
 
                     </select>
-
                 </div>
-                <a href="@controllers.routes.ArticleController.newarticle" class="btn btn-default">Anzeigen</a>
-
+                <div class="col-sm-6">
+                    <h3>Wählen Sie den Betrachtungszeitraum</h3>
+                    <div class="form-group">
+                        <div class="col-sm-6">
+                            <div class="input-daterange input-group" id="datepicker3">
+                                <input type="text" class="input-small form-control" name="start">
+                                <span class="input-group-addon">bis</span>
+                                <input type="text" class="input-small form-control" name="end">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
+
     </div>
 
     <div class="row">
         <div class=".col-md-12 col-lg-12">
             <div class="panel panel-primary">
-
                 <div class="panel-body">
-                    <div id="line-example" style="position: relative;">
-                        <svg height="342" version="1.1" width="1608" xmlns="http://www.w3.org/2000/svg" style="overflow: hidden; position: relative;">
-                            <desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Raphaël 2.1.0</desc>
-                            <defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">
 
-                            </defs>
-                            <text x="33.5" y="307.984375" text-anchor="end" font="10px &quot;Arial&quot;" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: end; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: sans-serif;" font-size="12px" font-family="sans-serif" font-weight="normal">
-                                <tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="4.1640625">0</tspan>
-                            </text>
-                            <path fill="none" stroke="#aaaaaa" d="M46,307.984375H1568" stroke-width="0.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
-                            <text x="33.5" y="237.23828125" text-anchor="end" font="10px &quot;Arial&quot;" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: end; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: sans-serif;" font-size="12px" font-family="sans-serif" font-weight="normal"><tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="4.16015625">25</tspan></text><path fill="none" stroke="#aaaaaa" d="M46,237.23828125H1568" stroke-width="0.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><text x="33.5" y="166.4921875" text-anchor="end" font="10px &quot;Arial&quot;" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: end; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: sans-serif;" font-size="12px" font-family="sans-serif" font-weight="normal"><tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="4.15625">50</tspan></text><path fill="none" stroke="#aaaaaa" d="M46,166.4921875H1568" stroke-width="0.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><text x="33.5" y="95.74609374999997" text-anchor="end" font="10px &quot;Arial&quot;" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: end; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: sans-serif;" font-size="12px" font-family="sans-serif" font-weight="normal"><tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="4.160156249999972">75</tspan></text><path fill="none" stroke="#aaaaaa" d="M46,95.74609374999997H1568" stroke-width="0.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><text x="33.5" y="25" text-anchor="end" font="10px &quot;Arial&quot;" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: end; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: sans-serif;" font-size="12px" font-family="sans-serif" font-weight="normal"><tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="4.1640625">100</tspan></text><path fill="none" stroke="#aaaaaa" d="M46,25H1568" stroke-width="0.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><text x="1568" y="320.484375" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: sans-serif;" font-size="12px" font-family="sans-serif" font-weight="normal" transform="matrix(1,0,0,1,0,7.0078)"><tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="4.1640625">2012</tspan></text><text x="1314.449109995436" y="320.484375" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: sans-serif;" font-size="12px" font-family="sans-serif" font-weight="normal" transform="matrix(1,0,0,1,0,7.0078)"><tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="4.1640625">2011</tspan></text><text x="1060.898219990872" y="320.484375" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: sans-serif;" font-size="12px" font-family="sans-serif" font-weight="normal" transform="matrix(1,0,0,1,0,7.0078)"><tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="4.1640625">2010</tspan></text><text x="807.3473299863076" y="320.484375" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: sans-serif;" font-size="12px" font-family="sans-serif" font-weight="normal" transform="matrix(1,0,0,1,0,7.0078)"><tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="4.1640625">2009</tspan></text><text x="553.1017800091283" y="320.484375" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: sans-serif;" font-size="12px" font-family="sans-serif" font-weight="normal" transform="matrix(1,0,0,1,0,7.0078)"><tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="4.1640625">2008</tspan></text><text x="299.55089000456417" y="320.484375" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: sans-serif;" font-size="12px" font-family="sans-serif" font-weight="normal" transform="matrix(1,0,0,1,0,7.0078)"><tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="4.1640625">2007</tspan></text><text x="46" y="320.484375" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#888888" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-size: 12px; line-height: normal; font-family: sans-serif;" font-size="12px" font-family="sans-serif" font-weight="normal" transform="matrix(1,0,0,1,0,7.0078)"><tspan style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);" dy="4.1640625">2006</tspan></text><path fill="none" stroke="#7a92a3" d="M46,53.29843749999998C109.38772250114104,70.98496093749998,236.16316750342313,106.35800781249998,299.55089000456417,124.04453124999998C362.93861250570524,141.73105468749998,489.71405750798726,194.79062499999998,553.1017800091283,194.79062499999998C616.6631675034232,194.79062499999998,743.7859424920127,124.04453124999998,807.3473299863076,124.04453124999998C870.7350524874487,124.04453124999998,997.5104974897308,194.79062499999998,1060.898219990872,194.79062499999998C1124.285942492013,194.79062499999998,1251.0613874942949,141.73105468749998,1314.449109995436,124.04453124999998C1377.836832496577,106.35800781249998,1504.612277498859,70.98496093749998,1568,53.29843749999998" stroke-width="3" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><path fill="none" stroke="#0b62a4" d="M46,25C109.38772250114104,42.68652343749999,236.16316750342313,78.05957031249997,299.55089000456417,95.74609374999997C362.93861250570524,113.43261718749997,489.71405750798726,166.4921875,553.1017800091283,166.4921875C616.6631675034232,166.4921875,743.7859424920127,95.74609374999997,807.3473299863076,95.74609374999997C870.7350524874487,95.74609374999997,997.5104974897308,166.4921875,1060.898219990872,166.4921875C1124.285942492013,166.4921875,1251.0613874942949,113.43261718749997,1314.449109995436,95.74609374999997C1377.836832496577,78.05957031249997,1504.612277498859,42.68652343749999,1568,25" stroke-width="3" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><circle cx="46" cy="53.29843749999998" r="7" fill="#7a92a3" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><circle cx="299.55089000456417" cy="124.04453124999998" r="4" fill="#7a92a3" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><circle cx="553.1017800091283" cy="194.79062499999998" r="4" fill="#7a92a3" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><circle cx="807.3473299863076" cy="124.04453124999998" r="4" fill="#7a92a3" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><circle cx="1060.898219990872" cy="194.79062499999998" r="4" fill="#7a92a3" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><circle cx="1314.449109995436" cy="124.04453124999998" r="4" fill="#7a92a3" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><circle cx="1568" cy="53.29843749999998" r="4" fill="#7a92a3" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><circle cx="46" cy="25" r="7" fill="#0b62a4" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><circle cx="299.55089000456417" cy="95.74609374999997" r="4" fill="#0b62a4" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><circle cx="553.1017800091283" cy="166.4921875" r="4" fill="#0b62a4" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><circle cx="807.3473299863076" cy="95.74609374999997" r="4" fill="#0b62a4" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><circle cx="1060.898219990872" cy="166.4921875" r="4" fill="#0b62a4" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><circle cx="1314.449109995436" cy="95.74609374999997" r="4" fill="#0b62a4" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><circle cx="1568" cy="25" r="4" fill="#0b62a4" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle></svg><div class="morris-hover morris-default-style" style="left: 1.5px; top: 35px;"><div class="morris-hover-row-label">2006</div><div class="morris-hover-point" style="color: #0b62a4">
-                        Series A:
-                        100
-                    </div><div class="morris-hover-point" style="color: #7A92A3">
-                        Series B:
-                        90
-                    </div></div></div>
+                    hier
+                    <div id="myfirstchart" style="height: 250px;"></div>
+
                 </div>
             </div>
         </div>
     </div>
+
 </div>
 
-<script type='text/javascript' src='/assets/js/jquery.flot.min.js'></script>
-<script type='text/javascript' src='/assets/js/jquery.flot.stack.min.js'></script>
-<script type='text/javascript' src='/assets/js/jquery.flot.pie.min.js'></script>
-<script type='text/javascript' src='/assets/js/jquery.flot.resize.min.js'></script>
+<link rel="stylesheet" type="text/css" href="assets/plugins/jqueryui-timepicker/jquery.ui.timepicker.css">
+<link rel="stylesheet" type="text/css" href="assets/plugins/form-daterangepicker/daterangepicker-bs3.css">
+<link rel="stylesheet" type="text/css" href="assets/plugins/form-datepicker/datepicker.css">
+<link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
+
+<script type="text/javascript" src="assets/plugins/form-daterangepicker/daterangepicker.min.js"></script>
+<script type="text/javascript" src="assets/plugins/form-datepicker/bootstrap-datepicker.js"></script>
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="http://cdn.oesmith.co.uk/morris-0.4.3.min.js"></script>
+
+<script type="text/javascript">
+
+    new Morris.Line({
+        // ID of the element in which to draw the chart.
+        element: 'myfirstchart',
+        // Chart data records -- each entry in this array corresponds to a point on
+        // the chart.
+        data: [
+            { year: '2008', value: 20 },
+            { year: '2009', value: 10 },
+            { year: '2010', value: 5 },
+            { year: '2011', value: 5 },
+            { year: '2012', value: 20 }
+        ],
+        // The name of the data record attribute that contains x-values.
+        xkey: 'year',
+        // A list of names of data record attributes that contain y-values.
+        ykeys: ['value'],
+        // Labels for the ykeys -- will be displayed when you hover over the
+        // chart.
+        labels: ['Value']
+    });
+
+
+    $(function() {
+        $( "#datepicker3 input" ).datepicker({
+            changeMonth: true,
+            changeYear: true
+        });
+    });
+</script>
 
 }

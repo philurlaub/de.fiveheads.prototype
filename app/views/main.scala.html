@@ -60,14 +60,46 @@
             <!-- BEGIN SIDEBAR MENU -->
             <ul class="acc-menu" id="sidebar">
 
-                <li><a href="@controllers.routes.Application.index"><i class="fa fa-home"></i><span>Dashboard</span></a></li>
-                <li><a href="@controllers.routes.RatingController.rating"><i class="fa fa-star-half-empty"></i><span>Artikel bewerten</span></a></li>
-                <li class="divider"></li>
-                <li><a href="@controllers.routes.ArticleController.articlelist"><i class="fa fa-list"></i><span>Artikelliste</span></a></li>
-                <li><a href="@controllers.routes.UserController.userlist"><i class="fa fa-group"></i><span>Benutzermanagement</span></a></li>
-                <li><a href="@controllers.routes.KeywordController.keywordStats"><i class="fa fa-bar-chart-o"></i><span>Stichwort Statistik</span></a></li>
-                <li class="divider"></li>
-                <li><a href="@controllers.routes.WekaController.options"><i class="fa fa-gears"></i><span>WEKA Optionen</span></a></li>
+                <li class="toogleLink userLink" style="display:none;">
+                    <a href="@controllers.routes.Application.index"><i class="fa fa-home"></i><span>Dashboard</span></a>
+                </li>
+
+                <li class="toogleLink userLink" style="display:none;">
+                    <a href="@controllers.routes.RatingController.rating"><i class="fa fa-star-half-empty"></i><span>Artikel bewerten</span></a>
+                </li>
+
+                <li class="toogleLink userLink" style="display:none;">
+                    <a href="@controllers.routes.RatingController.getReward"><i class="fa fa-gift"></i><span>Punkte einlösen</span></a>
+                </li>
+
+                <li class="toogleLink divider userLink" style="display:none;"></li>
+
+                <li class="toogleLink companyLink" style="display:none;">
+                    <a href="@controllers.routes.ArticleController.articlelist"><i class="fa fa-list"></i><span>Artikelliste</span></a>
+                </li>
+
+                <li class="toogleLink companyLink" style="display:none;">
+                    <a href="@controllers.routes.UserController.userlist"><i class="fa fa-group"></i><span>Benutzermanagement</span></a>
+                </li>
+
+                <li class="toogleLink companyLink" style="display:none;">
+                    <a href="@controllers.routes.KeywordController.keywordStats"><i class="fa fa-bar-chart-o"></i><span>Stichwort Statistik</span></a>
+                </li>
+
+                <li class="toogleLink divider companyLink" style="display:none;"></li>
+
+                <li class="toogleLink" style="display:none;">
+                    <a href="@controllers.routes.WekaController.options"><i class="fa fa-gears"></i><span>WEKA Optionen</span></a>
+                </li>
+
+                <li>
+                    <h4 style="padding-top: 50px; margin-left: 10px; color:darkred;" >Nur zur Demonstration</h4>
+                    <select class="form-control" id="roleSwitch">
+                        <option value="admin" @if(session().get("role") == "admin"){selected}>Administrator</option>
+                        <option value="user" @if(session().get("role") == "user"){selected}>Benutzer</option>
+                        <option value="manager" @if(session().get("role") == "manager"){selected}>Unternehmen</option>
+                    </select>
+                </li>
 
             </ul>
             <!-- END SIDEBAR MENU -->
@@ -117,6 +149,19 @@
     </footer>
 
 </div> <!-- page-container -->
+
+<script type="text/javascript">
+        $(document).ready(function(){
+            var role = $("#roleSwitch").val();
+            if(role == "admin"){$(".toogleLink").show();}
+            if(role == "user"){$(".userLink").show();}
+            if(role == "manager"){$(".companyLink").show();}
+        });
+
+        $("#roleSwitch").change(function() {
+            window.location.replace("/?role="+$(this).val());
+        });
+</script>
 
 </body>
 </html>

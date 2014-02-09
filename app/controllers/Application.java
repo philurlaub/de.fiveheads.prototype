@@ -20,6 +20,11 @@ public class Application extends Controller {
 
     @Security.Authenticated(Secured.class)
     public static Result index() {
+
+        if (request().queryString().containsKey("role")) {
+            session().put("role", request().queryString().get("role")[0]);
+        }
+
         return ok(index.render());
     }
 

@@ -14,6 +14,7 @@ import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.NominalToString;
 import weka.filters.unsupervised.attribute.Remove;
 import weka.filters.unsupervised.attribute.StringToWordVector;
+import weka.filters.unsupervised.attribute.Standardize;
 
 import java.io.*;
 import java.sql.Timestamp;
@@ -31,21 +32,26 @@ public class WekaTest {
 
 
     private static MultilayerPerceptron neuronalNetwork;
+    private static Instances trainInstances;
 
 
     public static Instances filter(Instances instances){
 
         try {
-            // ==> Ablauf: Aus der Datenbank kommt "Nominal"
+            // ==> Ablauf: Aus der Datenbank kommt Attributtyp "Nominal"
             //             Konvertierung zu "String" damit dann "StringToWordVector" angewendet werden kann
             NominalToString makeString = new NominalToString();
             makeString.setAttributeIndexes("1");
+
             makeString.setInputFormat(instances);
 
             /**
              * Filter Anwenden (NominalToString)
              */
             instances = Filter.useFilter(instances, makeString);
+
+            //System.out.println(trainInstances.toSummaryString());
+            //System.out.println(instances.toSummaryString());
 
             NGramTokenizer tokenizer = new NGramTokenizer();
             tokenizer.setNGramMinSize(1);
@@ -65,11 +71,13 @@ public class WekaTest {
             /**
              * Filter StringToWordVector
              */
+            System.out.println("Filter anwenden ...");
             instances = Filter.useFilter(instances, makeVector);
 
             return instances;
 
         } catch (Exception e){
+            System.out.println("Fehler beim filtern der Daten!");
             e.printStackTrace(new PrintStream(System.out));
             return null;
         }
@@ -88,12 +96,13 @@ public class WekaTest {
             query.setUsername("root");
             query.setPassword("admin");
             query.setQuery("SELECT content, classification FROM article WHERE type_switch = 'user';");
-            Instances train = query.retrieveInstances();
+            trainInstances = query.retrieveInstances();
 
-            train = filter(train);
+
+            trainInstances = filter(trainInstances);
 
             //Setzen des Attributes für die Vorhersage
-            train.setClassIndex(1);
+            trainInstances.setClassIndex(1);
 
             //Remove removeAttr = new Remove();
             output = "Neuronales Netz erfolgreich trainiert!";
@@ -102,7 +111,7 @@ public class WekaTest {
              * Neuronales Netz
              */
             neuronalNetwork = new MultilayerPerceptron();
-            neuronalNetwork.buildClassifier(train);
+            neuronalNetwork.buildClassifier(trainInstances);
         }
         catch(Exception e){
             output = e.getMessage();
@@ -113,29 +122,86 @@ public class WekaTest {
     }
 
     public static int predictSingleArticleRating(Long articleId){
+        learn();
         try {
             InstanceQuery query = new InstanceQuery();
             query.setUsername("root");
             query.setPassword("admin");
             query.setQuery("SELECT content FROM article WHERE id =" + articleId + ";");
-            Instances predict = query.retrieveInstances();
-
-            predict = filter(predict);
-
+            Instances predictInstances = query.retrieveInstances();
 
             // Create vector to hold nominal values "first", "second", "third"
             FastVector my_nominal_values = new FastVector(2);
             my_nominal_values.addElement("pos");
             my_nominal_values.addElement("neg");
 
-            predict.insertAttributeAt(new Attribute("classification", my_nominal_values), 0);
-            predict.setClassIndex(0);
+            predictInstances.insertAttributeAt(new Attribute("classification", my_nominal_values), 0);
+            predictInstances.setClassIndex(1);
+
+            System.out.println(predictInstances.toSummaryString());
+
+            //############################################
+            //predictInstances = filter(predictInstances);
+            try {
+                // ==> Ablauf: Aus der Datenbank kommt Attributtyp "Nominal"
+                //             Konvertierung zu "String" damit dann "StringToWordVector" angewendet werden kann
+                NominalToString makeString = new NominalToString();
+                makeString.setAttributeIndexes("2");
+
+                makeString.setInputFormat(predictInstances);
+
+                /**
+                 * Filter Anwenden (NominalToString)
+                 */
+                predictInstances = Filter.useFilter(predictInstances, makeString);
+
+                //System.out.println(trainInstances.toSummaryString());
+                //System.out.println(instances.toSummaryString());
+
+                NGramTokenizer tokenizer = new NGramTokenizer();
+                tokenizer.setNGramMinSize(1);
+                tokenizer.setNGramMaxSize(1);
+                tokenizer.setDelimiters("\\W");
+
+                StringToWordVector makeVector = new StringToWordVector();
+                makeVector.setInputFormat(predictInstances);
+                makeVector.setTokenizer(tokenizer);
+                makeVector.setWordsToKeep(10);
+                makeVector.setLowerCaseTokens(true);
+                makeVector.setOutputWordCounts(true);
+                makeVector.setIDFTransform(true);
+                makeVector.setUseStoplist(true);
+                makeVector.setNormalizeDocLength(new SelectedTag(StringToWordVector.FILTER_NORMALIZE_ALL, StringToWordVector.TAGS_FILTER));
+
+                /**
+                 * Filter StringToWordVector
+                 */
+
+                predictInstances = Filter.useFilter(predictInstances, makeVector);
 
 
-            Evaluation eTest = new Evaluation(predict);
-            eTest.evaluateModel(neuronalNetwork, predict);
-            System.out.println(predict.toSummaryString());
-            System.out.println(eTest.toSummaryString());
+
+            } catch (Exception e){
+                System.out.println("Fehler beim filtern der Daten!");
+                e.printStackTrace(new PrintStream(System.out));
+
+            }
+            //############################################
+
+            //System.out.println(trainInstances.toSummaryString());
+            System.out.println(predictInstances.toSummaryString());
+
+            Standardize standFilter = new Standardize();
+            standFilter.setInputFormat(trainInstances);  // initializing the filter once with training set
+            Instances newTrain = Filter.useFilter(trainInstances, standFilter);  // configures the Filter based on train instances and returns filtered instances
+            Instances newTest = Filter.useFilter(predictInstances, standFilter);    // create new test set
+
+            System.out.println("Filter fertig");
+
+            Evaluation eTest = new Evaluation(newTest);
+            eTest.evaluateModel(neuronalNetwork, newTest);
+            //System.out.println(predict.toSummaryString());
+            //System.out.println(eTest.toSummaryString());
 
 
             return 1;
