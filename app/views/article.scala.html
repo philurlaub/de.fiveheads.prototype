@@ -30,7 +30,7 @@
                             $('.rateModal-@article.id').click(function(){
                                 bootbox.confirm("<h3>Bewertung durch neuronales Netz</h3><br><div class='alert alert-dismissable alert-success'>Der Blogeintrag wurde als <strong>positiv</strong> eingestuft!</div>", function(result) {
                                     if (result){
-                                        window.location.href =  "@controllers.routes.ArticleController.delete(article.id)"
+                                        var i = 0;
                                     }
                                 });
                             });
