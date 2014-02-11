@@ -14193,8 +14193,13 @@ body.collapse-leftbar #search.keep-open form button[type="submit"] {
 
 /* The rating System */
 #ratingWrapper {
-    margin:0 auto;
-    width:606px;
+    width:460px;
+    margin: 0 auto;
+}
+
+.keywordSelect {
+    width: 360px;
+    margin: 0 auto;
 }
 
 #ratingBox {
@@ -14203,12 +14208,12 @@ body.collapse-leftbar #search.keep-open form button[type="submit"] {
 
 .ratingLabel {
     float:left;
-    padding-top:55px;
+    padding-top:45px;
 }
 
 #rating {
     list-style:none;
-    width:380px;
+    width:320px;
     margin:20px auto;
     padding:0px 10px;
 }
@@ -14220,8 +14225,8 @@ body.collapse-leftbar #search.keep-open form button[type="submit"] {
 
 #rating li a {
     display:block;
-    width:62px;
-    height:60px;
+    width:50px;
+    height:50px;
     margin:5px;
     border:1px solid #888;
     background-color:#595f69;
@@ -14233,9 +14238,10 @@ body.collapse-leftbar #search.keep-open form button[type="submit"] {
 
 #ratinginfo {
     clear:left;
-    width:350px;
+    width:320px;
     margin:95px auto 0 auto;
 }
+
 #ratinginfo p {
     text-align:center;
     background-image:url("../img/textbg.png");
@@ -14248,7 +14254,12 @@ body.collapse-leftbar #search.keep-open form button[type="submit"] {
     -o-border-radius:3px;
 }
 
-
 #userlist td.roleSwitch {
    padding-left: 30px;
+}
+
+@media (max-width: 1000px){
+    .roleSwitch1 {
+        display:none!important;
+    }
 }

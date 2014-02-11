@@ -15,6 +15,7 @@
 
 	<!-- The following CSS are included as plugins and can be removed if unused-->
     <link rel="stylesheet" type="text/css" href="/assets/js/jqueryui.css">
+    <link rel="stylesheet" type="text/css" href="/assets/plugins/form-multiselect/css/multi-select.css">
 
     <!-- <script type="text/javascript" src="assets/js/less.js"></script> -->
     <script type="text/javascript" src="/assets/js/jquery-1.10.2.min.js"></script>
@@ -25,6 +26,8 @@
     <script type="text/javascript" src="/assets/js/jquery.nicescroll.min.js"></script>
     <script type="text/javascript" src="/assets/js/bootbox.min.js"></script>
     <script type="text/javascript" src="/assets/js/application.js"></script>
+    <script type="text/javascript" src="/assets/plugins/form-autosize/jquery.autosize-min.js"></script>
+    <script type="text/javascript" src="/assets/plugins/form-multiselect/js/jquery.multi-select.min.js"></script>
     <script type="text/javascript" src="/assets/js/AppHelper.js"></script>
 
 </head>
@@ -51,6 +54,15 @@
         		</ul>
         	</li>
             <li><a href="" class="username"><span class="hidden-xs">Dein Punktestand:</span> <span class="badge badge-primary">@User.findByEmail(ctx.session().get("email")).points</span></a></li>
+
+            <li class="roleSwitch1" style="padding-right:100px">
+                <select class="form-control" id="roleSwitch">
+                    <option value="admin" @if(session().get("role") == "admin"){selected}>Administrator</option>
+                    <option value="user" @if(session().get("role") == "user"){selected}>Benutzer</option>
+                    <option value="manager" @if(session().get("role") == "manager"){selected}>Unternehmen</option>
+                </select>
+            </li>
+            <li  class="roleSwitch1"><a style="color:#e73c3c; float:right" >Nur zur Demonstration</a></li>
 		</ul>
 
     </header>
@@ -75,6 +87,10 @@
                 <li class="toogleLink divider userLink" style="display:none;"></li>
 
                 <li class="toogleLink companyLink" style="display:none;">
+                    <a href="@controllers.routes.KeywordController.keywordStats"><i class="fa fa-bar-chart-o"></i><span>Stichwort Statistik</span></a>
+                </li>
+
+                <li class="toogleLink companyLink" style="display:none;">
                     <a href="@controllers.routes.ArticleController.articlelist"><i class="fa fa-list"></i><span>Artikelliste</span></a>
                 </li>
 
@@ -82,23 +98,18 @@
                     <a href="@controllers.routes.UserController.userlist"><i class="fa fa-group"></i><span>Benutzermanagement</span></a>
                 </li>
 
-                <li class="toogleLink companyLink" style="display:none;">
-                    <a href="@controllers.routes.KeywordController.keywordStats"><i class="fa fa-bar-chart-o"></i><span>Stichwort Statistik</span></a>
-                </li>
-
                 <li class="toogleLink divider companyLink" style="display:none;"></li>
 
                 <li class="toogleLink" style="display:none;">
-                    <a href="@controllers.routes.WekaController.options"><i class="fa fa-gears"></i><span>WEKA Optionen</span></a>
+                    <a href="@controllers.routes.UserController.adminuserlist"><i class="fa fa-group"></i><span>Benutzermanagement</span></a>
                 </li>
 
-                <li>
-                    <h4 style="padding-top: 50px; margin-left: 10px; color:darkred;" >Nur zur Demonstration</h4>
-                    <select class="form-control" id="roleSwitch">
-                        <option value="admin" @if(session().get("role") == "admin"){selected}>Administrator</option>
-                        <option value="user" @if(session().get("role") == "user"){selected}>Benutzer</option>
-                        <option value="manager" @if(session().get("role") == "manager"){selected}>Unternehmen</option>
-                    </select>
+                <li class="toogleLink" style="display:none;">
+                    <a href="@controllers.routes.KeywordController.manageKeywords"><i>#</i><span>Stichwortmanagement</span></a>
+                </li>
+
+                <li class="toogleLink" style="display:none;">
+                    <a href="@controllers.routes.WekaController.options"><i class="fa fa-gears"></i><span>WEKA Optionen</span></a>
                 </li>
 
             </ul>

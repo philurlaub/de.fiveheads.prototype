@@ -12,6 +12,7 @@ import play.mvc.Security;
 import views.html.*;
 import views.html.user.register;
 import views.html.user.userlist;
+import views.html.user.adminuserlist;
 
 public class UserController extends Controller {
 
@@ -35,11 +36,20 @@ public class UserController extends Controller {
         }
     }
 
-    // Zeige Benutzertabelle
+    // Zeige Benutzertabelle (unternehmensspezifisch)
     @Security.Authenticated(Secured.class)
     public static Result userlist() {
         return ok(
                 userlist.render(
+                        User.findAll())
+        );
+    }
+
+    // Zeige Benutzertabelle (Alle Benutzer - nur für Administratoren -> fiveheads)
+    @Security.Authenticated(Secured.class)
+    public static Result adminuserlist() {
+        return ok(
+                adminuserlist.render(
                         User.findAll())
         );
     }

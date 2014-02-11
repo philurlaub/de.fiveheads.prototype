@@ -21,7 +21,7 @@ public class RatingController extends Controller {
         User user = User.findByEmail(session("email")) ;
         Article article = Article.getUnratedToUserEmail(user.id);
         if (article != null)
-            return ok(rating.render(article));
+            return ok(rating.render(article, Keyword.findAll()));
         else
             return ok(nothingtorate.render(user));
     }

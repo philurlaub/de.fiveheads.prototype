@@ -1,4 +1,4 @@
-@(articles: List[Article])
+@(articles: List[Article], keywords: List[Keyword])
 
 @main("Artikelliste") {
 
@@ -15,10 +15,9 @@
                             <label class="col-sm-3 control-label">Wählen Sie ein Stichwort</label>
                             <div class="col-sm-6">
                                 <select class="form-control" id="source">
-
-                                    <option value="AK">Apple iPhone 4</option>
-                                    <option value="HI">Apple iPhone 5s</option>
-                                    <option value="HI">Samsung Galaxy S4</option>
+                                    @keywords.map { keyword =>
+                                    <option value="@keyword.id">@keyword.name</option>
+                                    }
 
                                 </select>
 
@@ -67,6 +66,12 @@
                                 <i class="fa fa-trash-o"></i>
                             </a>
                             <span style="padding-left:20px;"><i>Artikel löschen</i></span>
+                        </div>
+                        <div class="col-md-4">
+                            <a href="#" disabled="" class="btn btn-default">
+                                <i class="fa fa-sign-out"></i>
+                            </a>
+                            <span style="padding-left:20px;"><i>Artikel anzeigen</i></span>
                         </div>
                     </div>
                 </div>

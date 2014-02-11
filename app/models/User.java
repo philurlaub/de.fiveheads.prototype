@@ -48,6 +48,11 @@ public class User extends Model {
     // Datenbankrelation zu den Bewetungen festlegen
     @OneToMany
     private List<Rating> ratingList;
+
+
+    // Alle Stichwörter für die eine Berechtigung existiert
+    //@OneToMany(cascade = CascadeType.PERSIST)
+    //private List<Keyword> keywordList;
     
     // Oueryobjekt
     public static Finder<String,User> find = new Finder<String,User>(String.class, User.class);
@@ -55,6 +60,7 @@ public class User extends Model {
     // Beutzer erstellen
     public static User create(User user) {
         user.registrationDate = new Date();
+        user.password = "einsnull";
         user.save();
         return user;
     }

@@ -15,7 +15,7 @@ public class ArticleController extends Controller{
     public static Result articlelist() {
         return ok(
             articlelist.render(
-                Article.findAll())
+                Article.findAll(), Keyword.findAll())
         );
     }
 
@@ -39,7 +39,7 @@ public class ArticleController extends Controller{
         return redirect(routes.ArticleController.articlelist());
     }
 
-    // POST Artikel über id löschen
+    // GET Artikel über id löschen
     public static Result delete(Long id){
         Article.delete(id);
         return redirect(routes.ArticleController.articlelist());

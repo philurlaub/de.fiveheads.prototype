@@ -1,0 +1,43 @@
+@(keywords: List[Keyword])
+
+
+@main("Stichwörter verwalten") {
+<div class="container"><!-- container -->
+
+    <h1>Neue Stichwörter erstellen</h1>
+
+    <div class="panel panel-primary">
+        @helper.form(routes.KeywordController.save) {
+            <div class="panel-body">
+                <h3>Zur Zeit in der Datenbank:</h3>
+                <ul style="list-style-type: none;">
+                    @keywords.map { keyword =>
+                        <li style="margin-top:10px;"><span class="btn-sm btn-default">@keyword.name<a style="padding-left:20px;" href=@routes.KeywordController.delete(keyword.id)>x</a></span></li>
+                    }
+
+                </ul>
+                <hr />
+                <div class="form-group">
+
+                    <label class="col-sm-3 control-label">Neue Stichwörter eintragen.</label>
+                    <div class="col-sm-6">
+                        <textarea name="keywordlist" class="form-control autosize" style="overflow: hidden; word-wrap: break-word; resize: horizontal; height: 52px;"></textarea>
+                    </div>
+
+                    <div class="col-sm-3"><p class="help-block">Bitte ein Stichwort pro Zeile angeben.</p></div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-3">
+                        <div class="btn-toolbar">
+                            <button class="btn-primary btn">Speichern</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+}

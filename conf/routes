@@ -22,6 +22,9 @@ GET     /rating/:article/:rating                controllers.RatingController.sav
 
 # Keyword Stats
 GET     /keywordstatistic                       controllers.KeywordController.keywordStats()
+GET     /managekeywords                         controllers.KeywordController.manageKeywords()
+POST    /savekeywords                           controllers.KeywordController.save()
+GET     /deletekeyword/$id<[0-9]+>              controllers.KeywordController.delete(id: Long)
 
 # Authentication
 GET     /login                                  controllers.Application.login()
@@ -33,6 +36,7 @@ GET     /logout                                 controllers.Application.logout()
 GET     /register                               controllers.UserController.register()
 POST    /register                               controllers.UserController.registerNewUser()
 GET     /userlist                               controllers.UserController.userlist()
+GET     /adminuserlist                          controllers.UserController.adminuserlist()
 GET     /deleteuser/$id<[0-9]+>                 controllers.UserController.delete(id: Long)
 GET     /setpoints/:id/:points                  controllers.UserController.setPoints(id: Long, points: Long)
 GET     /setrole/:id/:role                      controllers.UserController.setRole(id: Long, role: String)

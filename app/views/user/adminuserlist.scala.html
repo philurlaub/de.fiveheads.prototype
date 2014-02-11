@@ -13,8 +13,9 @@
                             <thead>
                             <tr>
                                 <th style="padding-right:100px">E-Mail</th>
+                                <th>Punkte</th>
                                 <th>Registriert am</th>
-                                <th>Stichwortzugriff</th>
+                                <th>Benutzer Rolle</th>
                                 <th>Aktionen</th>
                             </tr>
                             </thead>
@@ -22,18 +23,24 @@
                             @users.map { user =>
                             <tr>
                                 <td align="left"><i>@user.email</i></td>
+                                <td align="left"><i><div class="badge badge-warning">@user.points</div></i></td>
                                 <td align="left"><i>@if(user.registrationDate != null) {@user.registrationDate.format("dd MMMM yyyy")}</i></td>
-                                <td>
-                                    <ul class="list-inline">
-                                        <li><div class="btn-xs btn-primary">iphone 4</div></li>
-                                        <li><div class="btn-xs btn-primary">iphone 5</div></li>
-                                    </ul>
+                                <td class="roleSwitch">
+                                    <label class="radio-inline">
+                                        <input type="radio" name="roleSwitch-@user.id" value="user" @if(user.role == "user") {checked}> User
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="roleSwitch-@user.id" value="manager" @if(user.role == "manager") {checked}> Manager
+                                    </label>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="roleSwitch-@user.id" value="admin" @if(user.role == "admin") {checked}> Administrator
+                                    </label>
                                 </td>
                                 <td align="left">
                                     <div class="btn-group">
                                         <button id="delUser-@user.id" value="@controllers.routes.UserController.delete(user.id)" type="button" class="delUser btn btn-default"><i class="fa fa-trash-o"></i></button>
                                         <button id="resetUserPw-@user.id" value="" type="button" class="resetUserPw btn btn-default"><i class="fa fa-key"></i></button>
-                                        <button id="setUserKeyword-@user.id" value="" type="button" class="resetUserPw btn btn-default"><i>#</i></button>
+                                        <button id="setUserPoints-@user.id" value="@controllers.routes.UserController.setPoints(user.id, 99)" type="button" class="setUserPoints btn btn-default"><i class="fa fa-star"></i></button>
                                     </div>
                                 </td>
                             </tr>
@@ -61,9 +68,9 @@
                         </div>
                         <div class="col-md-4">
                             <a href="#" disabled="" class="btn btn-default">
-                                <i>#</i>
+                                <i class="fa fa-star"></i>
                             </a>
-                            <span style="padding-left:20px;"><i>Stichwörter festlegen</i></span>
+                            <span style="padding-left:20px;"><i>Punktestand ändern</i></span>
                         </div>
                     </div>
                 </div>
@@ -95,6 +102,11 @@
             });
         })
 
+        $(".roleSwitch input:radio").change(function(){
+            var userId = this.name.split("-")[1];
+            var userRole = this.value;
+            $.get(jsRoutes.controllers.UserController.setRole(userId, userRole).url);
+        })
     </script>
 </div>
 }

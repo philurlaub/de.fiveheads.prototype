@@ -1,3 +1,5 @@
+@(keywords: List[Keyword])
+
 @main("Prämie einlösen") {
 <div class="container"><!-- container -->
 
@@ -18,48 +20,66 @@
 
     <div class="panel panel-primary">
         <div class="panel-body">
-
-
             <div class="form-group">
                 <div class="col-sm-6">
-                    <h3>Wählen Sie ein Stichwort</h3>
+                    <h3>Wählen sie ein Stichwort, das angezeigt werden soll</h3>
                     <select class="form-control" id="source">
-
-                        <option value="AK">Apple iPhone 4</option>
-                        <option value="HI">Apple iPhone 5s</option>
-                        <option value="HI">Samsung Galaxy S4</option>
-
+                        @keywords.map { keyword =>
+                            <option value="@keyword.id">@keyword.name</option>
+                        }
                     </select>
                 </div>
                 <div class="col-sm-6">
-                    <h3>Wählen Sie den Betrachtungszeitraum</h3>
+                    <h3>Wählen Sie den gewünschten Betrachtungszeitraum</h3>
                     <div class="form-group">
-                        <div class="col-sm-6">
-                            <div class="input-daterange input-group" id="datepicker3">
-                                <input type="text" class="input-small form-control" name="start">
-                                <span class="input-group-addon">bis</span>
-                                <input type="text" class="input-small form-control" name="end">
-                            </div>
+                        <div class="input-daterange input-group" id="datepicker3">
+                            <input type="text" class="input-small form-control" name="start">
+                            <span class="input-group-addon">bis</span>
+                            <input type="text" class="input-small form-control" name="end">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 
     <div class="row">
         <div class=".col-md-12 col-lg-12">
             <div class="panel panel-primary">
                 <div class="panel-body">
-
-                    hier
-                    <div id="myfirstchart" style="height: 250px;"></div>
-
+                    <h3>Stimmung in Zeitverlauf</h3>
+                    <div id="myfirstchart" style="height: 300px;"></div>
+                    <hr />
+                    <h4>Stichwort hinzufügen:</h4>
+                    <ul id="addKeyword">
+                        @keywords.map { keyword =>
+                        <li class="btn btn-primary"><a style="color:#fff; text-decoration: none;" href="@keyword.id">@keyword.name</a></li>
+                        }
+                    </ul>
                 </div>
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-5">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <h3>Absolute Anzahl der Bewertungen</h3>
+                    <div id="donut-example" style="height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-7">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <h3>Anzahl der bewerteten Artikel</h3>
+                    <div id="bar-example" style="height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 </div>
 
@@ -77,25 +97,74 @@
 
 <script type="text/javascript">
 
-    new Morris.Line({
+    var data2 =  [
+        { year: '2013-07', value: 0.77, value2: 0.5, value3: 0.66},
+        { year: '2013-08', value: 0.66, value3: 0.59},
+        { year: '2013-09', value: 0.2, value3: 0.15},
+        { year: '2013-10', value: 0.8, value3: 0.36},
+        { year: '2013-11', value: 0.7, value3: 0.49},
+        { year: '2013-12', value: 0.5, value3: 0.61},
+        { year: '2014-01', value: 0.4, value3: 0.69},
+        { year: '2014-02', value: 0.2, value2: 0.5, value3: 0.89}
+
+    ]
+
+    var lineDiagramm = new Morris.Line({
         // ID of the element in which to draw the chart.
         element: 'myfirstchart',
         // Chart data records -- each entry in this array corresponds to a point on
         // the chart.
         data: [
-            { year: '2008', value: 20 },
-            { year: '2009', value: 10 },
-            { year: '2010', value: 5 },
-            { year: '2011', value: 5 },
-            { year: '2012', value: 20 }
+            { year: '2013-07', value: 0.77, value2: 0.5},
+            { year: '2013-08', value: 0.66},
+            { year: '2013-09', value: 0.2},
+            { year: '2013-10', value: 0.8},
+            { year: '2013-11', value: 0.7 },
+            { year: '2013-12', value: 0.5 },
+            { year: '2014-01', value: 0.4 },
+            { year: '2014-02', value: 0.2, value2: 0.5}
+
         ],
         // The name of the data record attribute that contains x-values.
         xkey: 'year',
         // A list of names of data record attributes that contain y-values.
-        ykeys: ['value'],
+        ykeys: ['value', 'value2', 'value3'],
         // Labels for the ykeys -- will be displayed when you hover over the
         // chart.
-        labels: ['Value']
+        labels: ['value', 'neutral', 'value3'],
+        ymax: 1,
+        ymin: 0,
+        lineWidth: 2,
+        pointSize: 3,
+        hideHover: 'always',
+        lineColors: ['#4f8edc','#8e2a20','#669e2f']
+
+    });
+
+    var donutDiagramm = Morris.Donut({
+        element: 'donut-example',
+        data: [
+            {label: "Positive Bewertungen", value: 699},
+            {label: "Negative Bewertungen", value: 157}
+        ]
+    });
+
+    var barDiagramm = Morris.Bar({
+        element: 'bar-example',
+        data: [
+            { year: '2013-07', value: 51},
+            { year: '2013-08', value: 55},
+            { year: '2013-09', value: 43},
+            { year: '2013-10', value: 64},
+            { year: '2013-11', value: 72 },
+            { year: '2013-12', value: 90 },
+            { year: '2014-01', value: 66 },
+            { year: '2014-02', value: 57,}
+        ],
+        xkey: 'year',
+        ykeys: ['value'],
+        labels: ['Anzahl der Blogeinträge'],
+
     });
 
 
@@ -104,6 +173,19 @@
             changeMonth: true,
             changeYear: true
         });
+
+        $("#addKeyword a").click(function(e){
+            e.preventDefault();
+            lineDiagramm.setData(data2);
+            lineDiagramm.redraw();
+        });
+
+        $( window ).resize(function() {
+            lineDiagramm.redraw();
+            donutDiagramm.redraw();
+            barDiagramm.redraw();
+        });
+
     });
 </script>
 

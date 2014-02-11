@@ -4,6 +4,10 @@ $(function() {
     $('#publicationDate').click(function () {
         $('#publicationDate').datepicker("show");
     });
+
+    // Autogrow Textarea
+    $('textarea.autosize').autosize({append: "\n"});
+    $('#multi-select').multiSelect();
 });
 
 // Bootbox Buttonsprache auf deutsch setzten

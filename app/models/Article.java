@@ -57,6 +57,10 @@ public class Article extends Model {
     @OneToMany(cascade = javax.persistence.CascadeType.REMOVE)
     private List<Rating> ratingList;
 
+    // Stichwörter mit denen ein Artikel getaggt wurde
+    @ManyToMany
+    public List<Keyword> keywordList;
+
     // Notwendig für Formularverarbeitung -> null = keine Fehler
     // play framework 2.2 Konvention
     public String validate() {
